@@ -5,13 +5,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { caseStudies, certifications, links, results, type CaseStudy } from "@/data/content";
 import { track } from "@/lib/tracking";
 
-function ExternalLink({ href, event, className="", children }:{href:string;event:string;className?:string;children:React.ReactNode}) {
-  return <a href={href} target="_blank" rel="noopener noreferrer" className={className} data-track={event} onClick={()=>track(event)}>{children}</a>;
+type TrackedLinkProps = {
+  href: string;
+  event: string;
+  details?: Record<string, unknown>;
+  className?: string;
+  children: React.ReactNode;
+  target?: "_blank";
+  rel?: string;
+  download?: boolean | string;
+};
+
+export function TrackedLink({ href, event, details={}, className="", children, target, rel, download }:TrackedLinkProps) {
+  return <a href={href} target={target} rel={rel} download={download} className={className} data-track={event} data-cta-location={typeof details.cta_location === "string" ? details.cta_location : undefined} onClick={()=>track(event,details)}>{children}</a>;
 }
 
 const emailAddress="jahangirahmed0692@gmail.com";
 
-export function EmailLink({ className="", children }:{className?:string;children:React.ReactNode}) {
+export function EmailLink({ ctaLocation, linkText, className="", children }:{ctaLocation:string;linkText:string;className?:string;children:React.ReactNode}) {
   const [copied,setCopied]=useState(false);
   const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
 
@@ -37,13 +48,13 @@ export function EmailLink({ className="", children }:{className?:string;children
   };
 
   const handleClick=()=>{
-    track("email_click");
+    track("email_click",{cta_location:ctaLocation,link_text:linkText});
     if(navigator.clipboard?.writeText){
       void navigator.clipboard.writeText(emailAddress).then(confirmCopy).catch(fallbackCopy);
     }else fallbackCopy();
   };
 
-  return <span className="email-action"><a className={className} href={links.email} data-track="email_click" onClick={handleClick}>{children}</a><span className={`email-copied${copied?" visible":""}`} role="status" aria-live="polite">{copied?"Email copied":""}</span></span>;
+  return <span className="email-action"><a className={className} href={links.email} data-track="email_click" data-cta-location={ctaLocation} onClick={handleClick}>{children}</a><span className={`email-copied${copied?" visible":""}`} role="status" aria-live="polite">{copied?"Email copied":""}</span></span>;
 }
 
 function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;children:React.ReactNode}) {
@@ -73,7 +84,7 @@ export function Header(){
   return <header className={`site-header ${scrolled?"scrolled":""}`}>
     <a className="brand" href="#top" aria-label="Jahangir Ahmed, home"><span className="monogram">JA</span><span>Jahangir Ahmed</span></a>
     <nav id="mobile-nav" className={open?"open":""} aria-label="Primary navigation">{nav.map(([x,h])=><a key={h} href={h} onClick={()=>setOpen(false)}>{x}</a>)}</nav>
-    <ExternalLink className="button button-small header-cta" href={links.upwork} event="upwork_click">Hire Me <span aria-hidden>↗</span></ExternalLink>
+    <TrackedLink className="button button-small header-cta" href={links.upwork} event="upwork_click" details={{cta_location:"header",link_text:"Hire Me"}} target="_blank" rel="noopener noreferrer">Hire Me <span aria-hidden>↗</span></TrackedLink>
     <button className="menu" onClick={()=>setOpen(!open)} aria-expanded={open} aria-controls="mobile-nav" aria-label="Toggle navigation"><span/><span/></button>
   </header>;
 }
@@ -100,4 +111,4 @@ export function Certifications(){
   return <><div className="cert-grid">{certifications.map((c,i)=><button className="cert-card" key={c.subtitle} onClick={()=>{setActive(c);track("certificate_open",{certificate:c.subtitle})}}><span className="cert-image"><Image src={c.image} alt={`${c.title}, ${c.subtitle} certificate`} width={i?480:800} height={i?360:600} sizes="(max-width: 700px) 78vw, 25vw"/></span><span className="cert-copy"><strong>{c.title}</strong><small>{c.subtitle}</small></span></button>)}</div>{active&&<Dialog label={active.title} onClose={()=>setActive(null)}><div className="lightbox-image"><Image src={active.image} alt={`${active.title}, ${active.subtitle} certificate`} width={1000} height={750} sizes="90vw"/></div><h3>{active.title}</h3><p>{active.subtitle}</p></Dialog>}</>;
 }
 
-export function ContactLinks(){return <div className="cta-actions"><ExternalLink href={links.upwork} event="contact_cta_click" className="button">Hire Me on Upwork <span aria-hidden>↗</span></ExternalLink><ExternalLink href={links.linkedin} event="linkedin_click" className="button button-outline">Connect on LinkedIn <span aria-hidden>↗</span></ExternalLink></div>}
+export function ContactLinks(){return <div className="cta-actions"><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"final_cta",link_text:"Hire Me on Upwork"}} className="button" target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink><TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"final_cta",link_text:"Connect on LinkedIn"}} className="button button-outline" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden>↗</span></TrackedLink></div>}
