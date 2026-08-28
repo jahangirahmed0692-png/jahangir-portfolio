@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { IBM_Plex_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const plex = IBM_Plex_Mono({ variable: "--font-plex", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -25,6 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable}`}>
+      {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
       <body>
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context":"https://schema.org", "@type":"Person", name:"Jahangir Ahmed", jobTitle:"Performance Marketing Specialist", url:siteUrl, sameAs:["https://www.linkedin.com/in/jahangir-ahmed-11835888/","https://www.upwork.com/freelancers/~01ff8182489f04452d?mp_source=share"] }).replace(/</g,"\\u003c") }} />
