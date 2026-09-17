@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { caseStudies, certifications, links, results, type CaseStudy } from "@/data/content";
 import { track } from "@/lib/tracking";
+import resultsStyles from "./results.module.css";
 
 type TrackedLinkProps = {
   href: string;
@@ -90,20 +91,43 @@ export function Header(){
 }
 
 export function ResultsCarousel(){
-  const ref=useRef<HTMLDivElement>(null); const [position,setPosition]=useState({start:true,end:false});
-  const update=useCallback(()=>{const el=ref.current;if(el)setPosition({start:el.scrollLeft<4,end:el.scrollLeft+el.clientWidth>=el.scrollWidth-4})},[]);
-  useEffect(()=>{update();addEventListener("resize",update);return()=>removeEventListener("resize",update)},[update]);
-  const move=(d:number)=>{ref.current?.scrollBy({left:d*ref.current.clientWidth*.82,behavior:"smooth"});track("results_interaction",{direction:d>0?"next":"previous"})};
+  const featuredResults=results.filter((result)=>result.featured);
+  const [active,setActive]=useState(0);
+  const selectResult=(index:number,industry:string)=>{
+    setActive(index);
+    track("results_interaction",{interaction:"account_select",account:industry,position:index+1});
+  };
   return <>
-    <div className="section-top"><div><p className="kicker dark">01 / Selected results</p><h2>Performance you can tie<br/>back to business.</h2><p className="lead dark">Selected outcomes across lead-generation campaigns.</p><p className="results-context">Anonymized examples from client work across lead-generation accounts.</p></div><div className="carousel-arrows"><button aria-label="Previous result" disabled={position.start} onClick={()=>move(-1)}>←</button><button aria-label="Next result" disabled={position.end} onClick={()=>move(1)}>→</button></div></div>
-    <div className="results-track" ref={ref} onScroll={update} tabIndex={0} aria-label="Selected client results">{results.map((r,i)=><article className="result-card" key={`${r.industry}${i}`}><div className="card-index">0{i+1}</div><p>{r.industry}</p><strong>{r.revenue}</strong><span>Revenue</span><dl><div><dt>Qualified leads</dt><dd>{r.leads}</dd></div><div><dt>Period</dt><dd>{r.period}</dd></div><div><dt>CPL</dt><dd>{r.cpl}</dd></div><div><dt>Monthly budget</dt><dd>{r.budget}</dd></div></dl></article>)}</div>
+    <div className={resultsStyles.intro}><div><p className="kicker dark">01 / Selected results</p><h2>Lead generation tied<br/>to commercial outcomes.</h2></div><p className={`lead dark ${resultsStyles.introLead}`}>Selected accounts I directly managed across healthcare and local-service businesses, with performance evaluated beyond raw lead volume.</p></div>
+    <div className={resultsStyles.comparison} aria-label="Selected account outcomes">{featuredResults.map((result,index)=><article className={`${resultsStyles.sheet}${active===index?` ${resultsStyles.active}`:""}`} key={`${result.industry}${index}`}><button className={resultsStyles.heading} type="button" aria-pressed={active===index} onClick={()=>selectResult(index,result.industry)}><span>0{index+1}</span><strong>{result.industry}</strong><small>Campaigns directly managed</small></button><div className={resultsStyles.primary}><div><strong>{result.leads}</strong><span>Qualified leads</span></div><div><strong>{result.cpl}</strong><span>CPL</span></div><div><strong>{result.revenuePerLead}</strong><span>Revenue / qualified lead</span></div></div><div className={resultsStyles.support}><span>{result.period}</span><strong>{result.revenue} <small>tracked revenue</small></strong></div></article>)}</div>
   </>;
 }
 
 export function CaseStudyGrid(){
   const [active,setActive]=useState<CaseStudy|null>(null);
-  const summaries=["Rebuilt fragmented acquisition signals, tightened targeting, and aligned campaign measurement with the funnel.","Built a lower-friction acquisition path focused on affordable sign-ups and paid-user conversion.","Scaled high-spend acquisition through disciplined bidding, creative testing, and budget control.","Optimized acquisition across the full journey from install through purchase and customer value."];
-  return <><div className="case-grid">{caseStudies.map((c,i)=><button className="case-card" key={c.title} onClick={()=>{setActive(c);track("case_study_open",{case_study:c.title})}}><span className="case-no">0{i+1}</span><p className="kicker">{c.category}</p><h3>{c.title}</h3><p className="case-summary">{summaries[i]}</p><div className="case-metrics">{c.metrics.slice(0,3).map(m=><div key={m[1]}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div><span className="case-open">View case study <b>↗</b></span></button>)}</div>{active&&<Dialog label={`${active.title} case study`} onClose={()=>setActive(null)}><p className="kicker">{active.category}</p><h2>{active.title}</h2><div className="modal-metrics">{active.metrics.map(m=><div key={m[1]}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div>{[["Situation",active.situation],["Diagnosis",active.diagnosis],["Strategy / Execution",active.execution],["Outcome",active.outcome]].map(([h,p])=><section className="modal-section" key={h}><h3>{h}</h3><p>{p}</p></section>)}</Dialog>}</>;
+  const summaries=["Rebuilt fragmented acquisition signals, tightened targeting, and aligned campaign measurement with the funnel.","Built a lower-friction acquisition path focused on affordable sign-ups and paid-user conversion.","Optimized acquisition across the full journey from install through purchase and customer value."];
+  const openCaseStudy=(caseStudy:CaseStudy)=>{
+    setActive(caseStudy);
+    track("case_study_open",{
+      case_study:caseStudy.title,
+      ...(caseStudy.trackingName?{case_study_name:caseStudy.trackingName}:{}),
+    });
+  };
+  return <>
+    <div className="case-grid">{caseStudies.map((c,i)=><button className="case-card" key={c.title} onClick={()=>openCaseStudy(c)}><span className="case-no">0{i+1}</span><p className="kicker">{c.brand?`${c.brand} / ${c.category}`:c.category}</p><h3>{c.title}</h3><p className="case-summary">{c.summary??summaries[i]}</p><div className="case-metrics">{c.metrics.slice(0,c.trackingName?4:3).map(m=><div key={`${m[0]}-${m[1]}`}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div><span className="case-open">View case study <b>↗</b></span></button>)}</div>
+    {active&&<Dialog label={`${active.brand?`${active.brand} `:""}${active.title} case study`} onClose={()=>setActive(null)}>
+      <p className="kicker">{active.brand?`${active.brand} / ${active.category}`:active.category}</p>
+      <h2>{active.title}</h2>
+      {active.brandUrl&&<a className="case-brand-link" href={active.brandUrl} target="_blank" rel="noopener noreferrer">Visit {active.brand} <span aria-hidden>↗</span></a>}
+      <div className="modal-metrics">{active.metrics.map(m=><div key={`${m[0]}-${m[1]}`}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div>
+      {active.trackingName&&active.tags&&<div className="modal-tags" aria-label="Case study capabilities">{active.tags.map(tag=><span key={tag}>{tag}</span>)}</div>}
+      <section className="modal-section"><h3>Situation</h3><p>{active.situation}</p></section>
+      <section className="modal-section"><h3>Diagnosis</h3><p>{active.diagnosis}</p></section>
+      {active.strategy?<section className="modal-section"><h3>Strategy</h3><p>{active.strategy}</p></section>:null}
+      <section className="modal-section"><h3>{active.strategy?"Execution":"Strategy / Execution"}</h3>{active.executionGroups?<div className="execution-groups">{active.executionGroups.map((group,index)=><div key={group.title??index}>{group.title&&<h4>{group.title}</h4>}<ul>{group.items.map(item=><li key={item}>{item}</li>)}</ul></div>)}</div>:<p>{active.execution}</p>}</section>
+      <section className="modal-section"><h3>Outcome</h3><p>{active.outcome}</p></section>
+    </Dialog>}
+  </>;
 }
 
 export function Certifications(){
