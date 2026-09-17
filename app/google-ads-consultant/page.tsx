@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { EmailLink, Header, TrackedLink } from "@/components/portfolio-client";
 import { links } from "@/data/content";
 import { AccountOutcomesCarousel } from "./account-outcomes-carousel";
@@ -61,7 +60,7 @@ export default function GoogleAdsConsultantPage() {
   };
 
   return <>
-    <Header homeHrefPrefix="/" />
+    <Header homeHrefPrefix="/" ctaLocation="google_ads_consultant" />
     <main>
       <section className={styles.hero}>
         <div className="container">
@@ -69,8 +68,8 @@ export default function GoogleAdsConsultantPage() {
           <h1>Google Ads Consulting Built Around <span>Business Outcomes.</span></h1>
           <p>I help businesses improve Google Ads performance by fixing search intent, campaign structure, conversion measurement, lead quality and bidding before scaling spend.</p>
           <div className={styles.actions}>
-            <Link className="button" href="/#results">View Results <span aria-hidden>↓</span></Link>
-            <TrackedLink className="text-link" href={links.upwork} event="upwork_click" details={{cta_location:"google_ads_consultant_hero",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink>
+            <TrackedLink className="button" href="/#results" event="results_interaction" details={{interaction_type:"view_results",section:"google_ads_consultant"}}>View Results <span aria-hidden>↓</span></TrackedLink>
+            <TrackedLink className="text-link" href={links.upwork} event="upwork_click" details={{cta_location:"google_ads_consultant",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink>
           </div>
         </div>
       </section>
@@ -98,7 +97,7 @@ export default function GoogleAdsConsultantPage() {
           <p className="kicker dark">Selected account outcomes</p>
           <div className={styles.sectionHeading}><h2>Performance evaluated beyond raw lead volume.</h2><p>Campaigns directly managed across U.S. local services, healthcare, B2B and regional businesses. Quantitative results are shown only where verified.</p></div>
           <AccountOutcomesCarousel />
-          <div className={styles.b2bProof}><div><span>B2B / SaaS</span><h3>Conversion recovery</h3></div><p>Campaign and funnel improvements contributed to conversion rate increasing from approximately 1.3% to more than 4%, while CAC declined from roughly $8K to roughly $3K.</p><Link className="text-link" href="/#case-studies">View case studies ↗</Link></div>
+          <div className={styles.b2bProof}><div><span>B2B / SaaS</span><h3>Conversion recovery</h3></div><p>Campaign and funnel improvements contributed to conversion rate increasing from approximately 1.3% to more than 4%, while CAC declined from roughly $8K to roughly $3K.</p><TrackedLink className="text-link" href="/#case-studies" event="results_interaction" details={{interaction_type:"view_case_studies",section:"google_ads_consultant"}}>View case studies ↗</TrackedLink></div>
         </div>
       </section>
 
@@ -115,8 +114,8 @@ export default function GoogleAdsConsultantPage() {
           <p className="kicker">Google Ads consulting</p>
           <h2>Need a Google Ads account that produces better-quality growth?</h2>
           <p>Let&apos;s identify the constraint, improve the signals and build a clearer path to efficient scale.</p>
-          <div className="cta-actions"><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"google_ads_consultant_final_cta",link_text:"Hire Me on Upwork"}} className="button" target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink><Link className="button button-outline" href="/#services">View Services <span aria-hidden>↗</span></Link></div>
-          <EmailLink ctaLocation="google_ads_consultant_final_cta" linkText="jahangirahmed0692@gmail.com" className="email-link">jahangirahmed0692@gmail.com</EmailLink>
+          <div className="cta-actions"><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"google_ads_consultant",link_text:"Hire Me on Upwork"}} className="button" target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink><TrackedLink className="button button-outline" href="/#services" event="contact_cta_click" details={{cta_location:"google_ads_consultant",link_text:"View Services"}}>View Services <span aria-hidden>↗</span></TrackedLink></div>
+          <EmailLink ctaLocation="google_ads_consultant" linkText="jahangirahmed0692@gmail.com" className="email-link">jahangirahmed0692@gmail.com</EmailLink>
         </div>
       </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumb).replace(/</g,"\\u003c")}} />
