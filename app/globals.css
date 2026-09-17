@@ -161,6 +161,19 @@ body{overflow-x:visible}
   .result-support>strong{font-size:14px}
 }
 
+/* Preserve the hero's visual hierarchy while the eyebrow serves as the page H1. */
+.hero h1.eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 32px;color:var(--mint);font:500 12px/1 var(--font-plex),monospace;letter-spacing:.12em;text-transform:uppercase}
+.hero-title{margin:0;font-size:clamp(48px,5.4vw,84px);line-height:.99;letter-spacing:-.055em;font-weight:550}
+.hero-title span{color:var(--mint)}
+
+@media(max-width:650px){
+  .hero h1.eyebrow{font-size:10px}
+  .hero-title{font-size:clamp(42px,13vw,58px)}
+}
+
+.expertise-service-link{display:inline-block;margin-top:28px;color:var(--mint)}
+.service-detail-link{display:inline-block;margin-top:30px;color:var(--mint)}
+
 .email-action{position:relative;display:inline-flex}
 .email-copied{position:absolute;z-index:2;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);width:max-content;padding:6px 8px;border:1px solid var(--line);background:#151817;color:var(--mint);font:500 10px/1 var(--font-plex),monospace;opacity:0;pointer-events:none;transition:opacity .18s ease}
 .email-copied.visible{opacity:1}
