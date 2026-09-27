@@ -104,3 +104,11 @@ export const certifications = [
   { title:"Digital Guru Green Belt", subtitle:"Core Product Track - Performance", image:"/images/digital-guru-performance.jpg" },
   { title:"Digital Guru Green Belt", subtitle:"Core Product Track - Video", image:"/images/digital-guru-video.jpg" },
 ];
+
+export const performanceAdsCertification = {
+  title: "Google AI-Powered Performance Ads Certification",
+  issuer: "Google Skillshop",
+  issued: "2026-09-22",
+  expires: "2027-09-22",
+  url: "https://skillshop.credential.net/ddc9fd31-1930-4ba0-940c-5752003740ce#acc.6RXm2hau",
+};

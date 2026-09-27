@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { caseStudies, certifications, links, results, type CaseStudy } from "@/data/content";
+import { caseStudies, certifications, links, performanceAdsCertification, results, type CaseStudy } from "@/data/content";
 import { track } from "@/lib/tracking";
 import resultsStyles from "./results.module.css";
 
@@ -15,10 +15,11 @@ type TrackedLinkProps = {
   target?: "_blank";
   rel?: string;
   download?: boolean | string;
+  "aria-label"?: string;
 };
 
-export function TrackedLink({ href, event, details={}, className="", children, target, rel, download }:TrackedLinkProps) {
-  return <a href={href} target={target} rel={rel} download={download} className={className} data-track={event} data-cta-location={typeof details.cta_location === "string" ? details.cta_location : undefined} onClick={()=>track(event,details)}>{children}</a>;
+export function TrackedLink({ href, event, details={}, className="", children, target, rel, download, "aria-label": ariaLabel }:TrackedLinkProps) {
+  return <a aria-label={ariaLabel} href={href} target={target} rel={rel} download={download} className={className} data-track={event} data-cta-location={typeof details.cta_location === "string" ? details.cta_location : undefined} onClick={()=>track(event,details)}>{children}</a>;
 }
 
 const emailAddress="jahangirahmed0692@gmail.com";
@@ -132,7 +133,7 @@ export function CaseStudyGrid(){
 
 export function Certifications(){
   const [active,setActive]=useState<(typeof certifications)[number]|null>(null);
-  return <><div className="cert-grid">{certifications.map((c,i)=><button className="cert-card" key={c.subtitle} onClick={()=>{setActive(c);track("certificate_open",{certificate:c.subtitle})}}><span className="cert-image"><Image src={c.image} alt={`${c.title}, ${c.subtitle} certificate`} width={i?480:800} height={i?360:600} sizes="(max-width: 700px) 78vw, 25vw"/></span><span className="cert-copy"><strong>{c.title}</strong><small>{c.subtitle}</small></span></button>)}</div>{active&&<Dialog label={active.title} onClose={()=>setActive(null)}><div className="lightbox-image"><Image src={active.image} alt={`${active.title}, ${active.subtitle} certificate`} width={1000} height={750} sizes="90vw"/></div><h3>{active.title}</h3><p>{active.subtitle}</p></Dialog>}</>;
+  return <><div className="cert-grid">{certifications.map((c,i)=><button className="cert-card" key={c.subtitle} onClick={()=>{setActive(c);track("certificate_open",{certificate:c.subtitle})}}><span className="cert-image"><Image src={c.image} alt={`${c.title}, ${c.subtitle} certificate`} width={i?480:800} height={i?360:600} sizes="(max-width: 700px) 78vw, 25vw"/></span><span className="cert-copy"><strong>{c.title}</strong><small>{c.subtitle}</small></span></button>)}<article className="cert-card cert-credential"><div className="cert-copy"><strong>{performanceAdsCertification.title}</strong><small>{performanceAdsCertification.issuer}</small><small><time dateTime={performanceAdsCertification.issued}>Issued Sep 2026</time> · <time dateTime={performanceAdsCertification.expires}>Expires Sep 2027</time></small><TrackedLink className="text-link" href={performanceAdsCertification.url} target="_blank" rel="noopener noreferrer" aria-label="View Google AI-Powered Performance Ads credential" event="certificate_open" details={{certificate:performanceAdsCertification.title,certificate_name:performanceAdsCertification.title,issuer:performanceAdsCertification.issuer,cta_location:"certifications"}}>View Credential <span aria-hidden>↗</span></TrackedLink></div></article></div>{active&&<Dialog label={active.title} onClose={()=>setActive(null)}><div className="lightbox-image"><Image src={active.image} alt={`${active.title}, ${active.subtitle} certificate`} width={1000} height={750} sizes="90vw"/></div><h3>{active.title}</h3><p>{active.subtitle}</p></Dialog>}</>;
 }
 
 export function ContactLinks(){return <div className="cta-actions"><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"final_cta",link_text:"Hire Me on Upwork"}} className="button" target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink><TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"final_cta",link_text:"Connect on LinkedIn"}} className="button button-outline" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden>↗</span></TrackedLink></div>}

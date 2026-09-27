@@ -250,3 +250,8 @@ body{overflow-x:visible}
   .result-support{gap:12px}
   .result-support>strong{font-size:14px}
 }
+
+.cert-credential{grid-column:1/-1;cursor:default}
+.cert-credential .cert-copy{height:100%;justify-content:center;line-height:1.5}
+.cert-credential .text-link{align-self:flex-start;margin-top:10px;font-size:13px;text-align:left}
+@media(max-width:650px){.cert-credential{grid-column:auto}}
