@@ -12,5 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: "https://jahangirahmed.com/performance-marketing-specialist",
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 }
