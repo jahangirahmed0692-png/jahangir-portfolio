@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     description: pageDescription,
     url: `${siteUrl}/`,
     siteName: "Jahangir Ahmed",
-    images: [{ url: `${siteUrl}/og.png`, width: 1200, height: 630, alt: "Jahangir Ahmed — Performance Marketing Specialist, $5M+ managed, 9+ years" }],
+    images: [{ url: `${siteUrl}/og-home-2026.png`, width: 1200, height: 630, alt: "Jahangir Ahmed, Performance Marketing Specialist" }],
   },
-  twitter: { card: "summary_large_image", title: pageTitle, description: pageDescription, images: [`${siteUrl}/og.png`] },
+  twitter: { card: "summary_large_image", title: pageTitle, description: pageDescription, images: [`${siteUrl}/og-home-2026.png`] },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
