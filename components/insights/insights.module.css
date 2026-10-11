@@ -1,0 +1,55 @@
+.hero{padding-block:clamp(150px,16vw,220px) clamp(70px,8vw,110px)}
+.hero h1{max-width:1000px;margin:0;font-size:clamp(42px,6.5vw,88px);line-height:1.04;letter-spacing:-.05em;font-weight:550;overflow-wrap:anywhere}
+.introduction{max-width:720px;margin:32px 0 0;color:var(--muted);font-size:clamp(17px,1.6vw,21px);line-height:1.7}
+.index h2,.bottom h2{font-size:clamp(30px,3.5vw,48px);line-height:1.15;letter-spacing:-.035em;font-weight:550;margin:0}
+.empty{max-width:780px;margin-top:48px;padding:32px 0;border-top:1px solid #ccd1ca}
+.empty h3{font-size:24px;font-weight:550;margin:0 0 16px}
+.empty p{color:#52625c;line-height:1.75;margin:0;max-width:640px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:40px}
+.card{padding:clamp(24px,3vw,42px);border:1px solid var(--line);background:var(--panel)}
+.card h3{font-size:clamp(24px,2.8vw,34px);font-weight:550;letter-spacing:-.035em;line-height:1.2;margin:0 0 20px}
+.card>p:not(:first-child){color:var(--muted);line-height:1.7;margin-bottom:30px}
+.index .card{background:white;border-color:#ccd1ca}
+.index .card .kicker,.index .card a:hover{color:#197653}
+.index .card>p:not(:first-child){color:#52625c}
+.card a:focus-visible,.breadcrumb a:focus-visible,.author a:focus-visible{outline:2px solid var(--green);outline-offset:5px}
+.card a:hover{color:var(--mint)}
+.bottom{padding-block:clamp(72px,8vw,110px)}
+.cta{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;border-top:1px solid var(--line);padding-top:48px}
+.bottom section+.cta{margin-top:72px}
+.cta p:not(.kicker){color:var(--muted);line-height:1.7;max-width:600px}
+.actions{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:flex-end}
+.reading{max-width:920px}
+.breadcrumb{display:flex;gap:14px;color:var(--muted);font-size:13px;margin-bottom:40px}
+.meta{display:flex;flex-wrap:wrap;gap:16px 24px;margin-top:32px;color:var(--muted);font-size:13px;line-height:1.6}
+.meta a{color:var(--mint)}
+.articlePaper{background:var(--light);color:var(--dark-text);padding-block:clamp(56px,7vw,96px)}
+.prose{font-size:18px;line-height:1.8;overflow-wrap:anywhere}
+.prose h2{font-size:clamp(28px,3vw,38px);line-height:1.2;letter-spacing:-.035em;margin:52px 0 20px;font-weight:550}
+.prose h3{font-size:24px;line-height:1.35;margin:36px 0 16px;font-weight:550}
+.prose>:first-child{margin-top:0}
+.prose p,.prose ul,.prose ol{margin:0 0 24px}
+.prose ul{list-style:disc;padding-left:26px}
+.prose ol{list-style:decimal;padding-left:26px}
+.prose li{padding-left:5px;margin-block:8px}
+.prose a,.author a:last-child{color:#197653;text-decoration:underline;text-underline-offset:4px}
+.prose a:focus-visible{outline:2px solid #197653;outline-offset:3px}
+.callout{padding:24px 28px;border-left:3px solid #197653;background:#e5ece5;margin-block:32px}
+.callout strong{display:block;margin-bottom:12px}
+.callout>:last-child{margin-bottom:0}
+.tableWrap{overflow-x:auto;margin-block:32px}
+.tableWrap table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.6}
+.tableWrap caption{text-align:left;font-weight:600;margin-bottom:12px}
+.tableWrap th,.tableWrap td{text-align:left;vertical-align:top;padding:16px;border:1px solid #ccd1ca;min-width:140px}
+.tableWrap th{background:#e5ece5}
+.author{border-top:1px solid #ccd1ca;margin-top:56px;padding-top:32px;font-size:15px;line-height:1.7}
+.author>a[rel=author]{font-size:23px;font-weight:550}
+.author p:not(.kicker){color:#52625c;margin:8px 0 20px}
+.prose .checklist{list-style:none;padding:0;margin-block:28px;border-top:1px solid #ccd1ca}
+.prose .checklist li{display:flex;align-items:baseline;gap:14px;padding:14px 0;margin:0;border-bottom:1px solid #ccd1ca}
+.checklist li>span:first-child{color:#197653;font-size:24px;flex:none}
+.articleCta{border-top:1px solid #ccd1ca;margin-top:48px;padding-top:32px}
+.articleCta h2{margin:0 0 20px;font-size:clamp(24px,3vw,32px);line-height:1.25;font-weight:550;letter-spacing:-.03em}
+.articleCta a{color:#197653;text-decoration:underline;text-underline-offset:4px;line-height:1.7}
+@media(max-width:900px){.cta{grid-template-columns:1fr;gap:24px}.actions{justify-content:flex-start}}
+@media(max-width:650px){.cards{grid-template-columns:1fr}.hero{padding-top:138px}.hero h1{font-size:42px}.prose{font-size:16px}.callout{padding:20px}.actions{align-items:stretch;flex-direction:column}.actions .button{width:100%}}
