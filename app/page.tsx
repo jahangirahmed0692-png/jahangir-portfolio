@@ -50,7 +50,7 @@ export default function Home(){
       <p className="hero-intro">Google Ads and Meta Ads for U.S. businesses that care about revenue, not clicks.</p>
       <div className="hero-actions">
         <BookingLink className="button" ctaLocation="hero">Book a Call</BookingLink>
-        <a className="text-link" href="#leak-check">Check your numbers <span aria-hidden>↓</span></a>
+        <a className="button button-ghost" href="#leak-check">Check your numbers <span aria-hidden>↓</span></a>
       </div>
       <ul className="hero-proof" aria-label="Professional credentials">{[["9+","years in paid media"],["$5M+","ad spend managed"],["50+","accounts managed"],["3","markets: U.S., MENA, AU"]].map(([a,b])=><li key={b}><strong>{a}</strong><span>{b}</span></li>)}</ul>
       <p className="hero-alt">Prefer a platform? <TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire me on Upwork ↗</TrackedLink> <i/> <TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></p>
@@ -98,7 +98,7 @@ export default function Home(){
         <p>Over 9+ years, I&apos;ve managed more than $5M in advertising spend across U.S. and international businesses, from focused local-service campaigns to eCommerce operations spending tens of thousands of dollars per day. My work spans agencies, SaaS, eCommerce, financial services, real estate, home services, and multi-account client portfolios.</p>
         <p>The common thread is simple: understand what the business actually needs from paid media, find where performance is breaking down, and fix the acquisition system rather than chasing surface-level metrics.</p>
         <p className="location">Based in Lahore <i/> Working remotely with U.S. and global businesses</p>
-        <div className="about-actions"><TrackedLink className="button dark-button" href={links.linkedin} event="linkedin_click" details={{cta_location:"about",link_text:"View LinkedIn"}} target="_blank" rel="noopener noreferrer">View LinkedIn ↗</TrackedLink><TrackedLink className="button resume-button" href="/resume/jahangir-ahmed-resume.pdf" event="resume_download" details={{cta_location:"about",file_name:"jahangir-ahmed-resume.pdf"}} download>Download Resume ↓</TrackedLink></div>
+        <div className="about-actions"><TrackedLink className="button dark-button" href={links.linkedin} event="linkedin_click" details={{cta_location:"about",link_text:"View LinkedIn"}} target="_blank" rel="noopener noreferrer">View LinkedIn <span aria-hidden>↗</span></TrackedLink><TrackedLink className="button resume-button" href="/resume/jahangir-ahmed-resume.pdf" event="resume_download" details={{cta_location:"about",file_name:"jahangir-ahmed-resume.pdf"}} download>Download Resume <span aria-hidden>↓</span></TrackedLink></div>
       </div>
     </div>
     <div className="testimonial-grid" id="testimonials">

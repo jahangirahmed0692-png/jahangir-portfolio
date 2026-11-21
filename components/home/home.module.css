@@ -28,7 +28,7 @@
 .verdict.ok{border-left-color:var(--green)}
 .verdict h3{margin:0;font-size:17px;font-weight:600}
 .verdict p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
-.ctaRow{display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+.ctaRow{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 @media(max-width:900px){.leak{grid-template-columns:1fr}}
 @media(max-width:480px){.kpis{grid-template-columns:1fr}}
 

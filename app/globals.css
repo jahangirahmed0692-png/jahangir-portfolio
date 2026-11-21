@@ -371,3 +371,52 @@ body{overflow-x:visible}
 .case-metrics strong .delta-arrow,.modal-metrics strong .delta-arrow{color:#6b7570}
 .light .modal-metrics strong .before{color:#b7701b}
 .home-v3{overflow-x:clip}
+
+/* V6 buttons (2026-11): one shared system for every CTA on every page */
+.button,.button.button-small{
+  --btn-h:54px;--chip:30px;
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:14px;
+  min-height:var(--btn-h);padding:0 8px 0 26px;border:1px solid rgba(167,243,208,.55);border-radius:999px;
+  background:linear-gradient(180deg,#43e3a3 0%,#1fc183 55%,#17a96f 100%);color:#04130c;
+  font:700 15px/1 var(--font-inter),sans-serif;letter-spacing:-.005em;white-space:nowrap;text-decoration:none;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.12),0 10px 28px -10px rgba(25,183,122,.75),0 0 0 0 rgba(25,183,122,0);
+  transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .25s ease,background .25s ease,border-color .25s ease,color .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.button:not(:has(> span[aria-hidden])){padding-right:26px}
+.button>span[aria-hidden]{display:grid;place-items:center;flex:none;width:var(--chip);height:var(--chip);margin-left:2px;border-radius:50%;background:#06170f;color:var(--mint);font-size:14px;font-weight:600;line-height:1;transition:transform .25s cubic-bezier(.2,.7,.2,1),background .25s ease}
+.button:hover{background:linear-gradient(180deg,#5cf0b3 0%,#26d08f 55%,#19b77a 100%);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(0,0,0,.12),0 16px 36px -12px rgba(25,183,122,.9),0 0 0 5px rgba(25,183,122,.14)}
+.button:hover>span[aria-hidden]{transform:translateX(3px)}
+.button[href^="http"]:hover>span[aria-hidden]{transform:translate(2px,-2px)}
+.button:hover>span[aria-hidden]:is(:only-child){transform:none}
+.button:active{transform:translateY(1px) scale(.985);box-shadow:inset 0 2px 6px rgba(0,0,0,.18),0 4px 12px -6px rgba(25,183,122,.6)}
+.button:focus-visible{outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 0 0 3px var(--ink),0 0 0 5px var(--mint)}
+.button:disabled{opacity:.6;cursor:wait;transform:none}
+/* Small (header) */
+.button.button-small{--btn-h:44px;--chip:26px;padding-left:20px;font-size:14px;gap:12px}
+/* Secondary on dark: glass outline */
+.button.button-outline,.button.button-ghost{background:rgba(255,255,255,.03);color:var(--paper);border-color:rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(6px)}
+.button.button-outline>span[aria-hidden],.button.button-ghost>span[aria-hidden]{background:rgba(167,243,208,.1);color:var(--mint)}
+.button.button-outline:hover,.button.button-ghost:hover{background:rgba(167,243,208,.07);color:#fff;border-color:rgba(167,243,208,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 4px rgba(167,243,208,.08)}
+.button.button-ghost:hover>span[aria-hidden]{transform:translateY(2px)}
+.button.button-outline:active,.button.button-ghost:active{background:rgba(167,243,208,.12)}
+/* On light sections */
+.button.dark-button{background:linear-gradient(180deg,#1d3a2e,#10221c);color:#fff;border-color:#10221c;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 10px 24px -12px rgba(16,34,28,.7)}
+.button.dark-button>span[aria-hidden]{background:var(--mint);color:#06170f}
+.button.dark-button:hover{background:linear-gradient(180deg,#24493a,#142a22);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 14px 30px -12px rgba(16,34,28,.8),0 0 0 4px rgba(16,34,28,.1)}
+.button.resume-button{background:#fff;color:var(--dark-text);border-color:#c9d0ca;box-shadow:0 1px 0 rgba(16,34,28,.04),0 8px 20px -14px rgba(16,34,28,.5)}
+.button.resume-button>span[aria-hidden]{background:#e6ece7;color:#137a54}
+.button.resume-button:hover{border-color:#137a54;background:#fff;box-shadow:0 0 0 4px rgba(19,122,84,.1),0 10px 24px -14px rgba(16,34,28,.6)}
+.button.resume-button:hover>span[aria-hidden]{transform:translateY(2px)}
+/* Layout tweaks so pills sit well everywhere */
+.hero-actions,.cta-actions,.about-actions,.ctaRow{gap:12px}
+.hero-actions .button,.hero-actions .text-link{min-height:var(--btn-h)}
+.sticky-cta .button{--btn-h:44px;--chip:26px;padding-left:18px;font-size:14px}
+@media(max-width:650px){.hero-actions .button{width:100%;justify-content:space-between;padding-left:24px}.cta-actions{flex-direction:column;align-items:stretch}.cta-actions .button{justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){.button,.button>span[aria-hidden]{transition:none}.button:hover{transform:none}}
+/* Secondary text CTAs that sit beside a primary button become ghost pills */
+.button ~ .text-link{display:inline-flex;align-items:center;gap:8px;min-height:var(--btn-h,54px);padding:0 22px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.03);color:var(--paper);font-size:15px;font-weight:600;line-height:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:background .25s,border-color .25s,transform .2s}
+.button ~ .text-link:hover{color:#fff;border-color:rgba(167,243,208,.55);background:rgba(167,243,208,.07);transform:translateY(-2px)}
+.button ~ .text-link:active{transform:translateY(1px)}
+.light .button ~ .text-link{border-color:#c9d0ca;background:#fff;color:var(--dark-text)}
+@media(max-width:650px){.button.button-small.header-cta{display:none}.button ~ .text-link{justify-content:center}}

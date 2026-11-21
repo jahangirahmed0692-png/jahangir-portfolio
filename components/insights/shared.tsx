@@ -21,7 +21,7 @@ export function InsightsCta({ location }: { location: string }) {
   return <aside className={styles.cta} aria-label="Work with Jahangir">
     <div><p className="kicker">Work with Jahangir</p><h2>Need a clearer view of paid media performance?</h2><p>Get hands-on support with campaign strategy, optimization and measurement.</p></div>
     <div className={styles.actions}>
-      <TrackedLink className="button" href={links.upwork} event="upwork_click" details={{ cta_location: location, link_text: "Hire Me on Upwork" }} target="_blank" rel="noopener noreferrer">Hire Me on Upwork ↗</TrackedLink>
+      <TrackedLink className="button" href={links.upwork} event="upwork_click" details={{ cta_location: location, link_text: "Hire Me on Upwork" }} target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink>
       <EmailLink ctaLocation={location} linkText="Email Jahangir" className="text-link">Email Jahangir ↗</EmailLink>
     </div>
   </aside>;

@@ -164,7 +164,7 @@ export function LeakCheck() {
       <div className={`${s.verdict} ${out.ok ? s.ok : ""}`}><h3>{out.title}</h3><p>{out.body}</p></div>
       <div className={s.ctaRow}>
         <button className="button" type="button" onClick={sendSnapshot}>Get my numbers reviewed <span aria-hidden>→</span></button>
-        <a className="text-link" href="#case-studies">See similar results ↓</a>
+        <a className="button button-ghost" href="#case-studies">See similar results <span aria-hidden>↓</span></a>
       </div>
     </div>
   </div>;
