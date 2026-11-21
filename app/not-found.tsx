@@ -22,7 +22,7 @@ export default function NotFound() {
           <p>The link may be out of date. These pages are a good place to start.</p>
           <div className="cta-actions">
             <Link className="button" href="/">Go to the homepage <span aria-hidden>↗</span></Link>
-            {primaryPages.filter((page) => !page.href.includes("home-services") && !page.href.includes("performance")).map((page) => <Link key={page.href} className="button button-outline" href={page.href}>{page.label}</Link>)}
+            {primaryPages.filter((page) => !page.href.includes("home-services") && !page.href.includes("performance")).map((page) => <Link key={page.href} className="button button-outline" href={page.href}>{page.label} <span aria-hidden>→</span></Link>)}
           </div>
         </div>
       </section>

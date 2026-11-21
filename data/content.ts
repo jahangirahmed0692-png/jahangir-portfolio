@@ -2,6 +2,8 @@ export const links = {
   upwork: "https://www.upwork.com/freelancers/~01ff8182489f04452d?mp_source=share",
   linkedin: "https://www.linkedin.com/in/jahangir-ahmed-11835888/",
   email: "mailto:jahangirahmed0692@gmail.com",
+  /** Google Calendar appointment-schedule link. NEXT_PUBLIC_BOOKING_URL overrides it. Empty = buttons go to the on-site form. */
+  booking: process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1P7vxLSYSBjYxsqdCTvRTgildSrwVDJA5llxfIEjXknmZq3fwa-WsPE-bTaqTxRleZPZd6558S",
 };
 
 export const results = [

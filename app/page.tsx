@@ -1,23 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CaseStudyGrid, Certifications, ContactLinks, EmailLink, Header, ResultsCarousel, TrackedLink } from "@/components/portfolio-client";
-import { links, problems } from "@/data/content";
+import { BookingLink, Certifications, EmailLink, Header, TrackedLink } from "@/components/portfolio-client";
+import { HeroHeadline, ProofCard } from "@/components/home/hero-client";
+import { HomeProvider, LeadForm, LeakCheck, PathCaseStudies, PathPicker, ResultsToggle, SystemMap } from "@/components/home/home-client";
+import { getInsights, formatPublicationDate } from "@/data/insights";
+import { links } from "@/data/content";
 import { SiteFooter } from "@/components/site-footer";
 import { jsonLdString, personRef, siteUrl, websiteId } from "@/lib/site";
 
-const framework=[["Traffic","Are we reaching the right market?"],["Intent","Are we attracting people likely to buy?"],["Conversion","Can the traffic become a customer?"],["Attribution","Are we measuring the right actions?"],["Economics","Does acquisition make financial sense?"],["Scale","Where can investment increase without destroying efficiency?"]];
 const industries=[
   ["Home & Local Services",["Roofing","Pest Control","Tree Services","Landscape Design & Architecture","Pools","Automotive & Tire","Security Services","Real Estate","RV & Camper Dealerships"]],
   ["B2B & Professional Services",["Accounting","CPA Services","Fractional CFO","Financial Services","Commercial Equipment","AV & Media Technology","Office Equipment","Drone & Air Solutions"]],
   ["SaaS & Technology",["B2B SaaS","AI SaaS","Recruitment Technology","Apps","Subscription Products"]],
   ["eCommerce & Consumer",["Consumer Products","Kids Apparel","Personalized Products","Stone & Marble","Retail Products","Subscription Commerce"]],
-];
-const operations=[
-  ["Search Intelligence",["Search-term analysis","Negative keyword optimization","Keyword expansion"]],
-  ["Conversion Diagnostics",["3-day conversion diagnostics","7-day conversion diagnostics","CPA/CPL analysis","CVR/CPC analysis","Lead-quality checks"]],
-  ["Budget & Auction Control",["Impression-share monitoring","Budget pacing"]],
-  ["Measurement & Tracking",["Tracking QA"]],
-  ["Account Improvement",["Campaign restructuring","Landing-page recommendations"]],
 ];
 const services=[
   ["Paid Media Management","Ongoing Google Ads, Meta Ads, and multi-platform management focused on acquisition quality, efficiency, and scalable growth."],
@@ -36,35 +31,105 @@ const profilePageJsonLd={
   mainEntity:personRef,
 };
 
-function Label({number,children,dark=false}:{number:number;children:React.ReactNode;dark?:boolean}){return <p className={`kicker${dark?" dark":""}`}>{String(number).padStart(2,"0")} / {children}</p>}
+const steps=[
+  ["A 20-minute call or a short note","You tell me what you spend, what you sell and what isn't working. I'll say honestly whether I can help."],
+  ["An audit, usually within the first week","I review tracking, search terms, structure, bidding and lead quality, then send a prioritized list of what to fix first."],
+  ["Fix, measure, then scale","Changes go in by likely impact. Budget increases come after the numbers that matter to the business improve."],
+];
 
-export default function Home(){return <><Header/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLdString(profilePageJsonLd)}}/><main>
-  <section className="hero" id="top"><div className="hero-copy"><h1 className="eyebrow"><span/> Jahangir Ahmed · PPC, Google Ads &amp; Meta Ads Specialist</h1><p className="hero-title"><span>$5M+ Managed.</span><br/>9+ Years in Paid Media.</p><p className="hero-intro">I help businesses turn Google Ads, Meta Ads and paid acquisition into measurable growth through stronger campaign strategy, cleaner conversion data, better customer intent and continuous performance optimization.</p><p className="hero-meta">U.S.-Focused <i/> Google Ads <i/> Meta Ads <i/> Paid Acquisition</p><div className="hero-actions"><a className="button" href="#results">View Results <span aria-hidden>↓</span></a><TrackedLink className="text-link" href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink></div><TrackedLink className="linkedin-mini" href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></div><div className="portrait-wrap"><Image className="portrait" src="/images/jahangir-headshot-2026.png" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1448} priority sizes="(max-width: 900px) 100vw, 44vw"/><div className="portrait-metric"><strong>9+ YEARS</strong><span>Paid Media</span></div></div></section>
-  <section className="credibility" aria-label="Professional credentials">{[["9+","Years Experience"],["$5M+","Paid Media Managed"],["50+","Multi-Account Portfolio"],["3 Markets","U.S. • MENA • Australia"]].map(x=><div key={x[1]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</section>
+function Kicker({children,dark=false}:{children:React.ReactNode;dark?:boolean}){return <p className={`kicker${dark?" dark":""}`}>{children}</p>}
 
-  <section className="section light results" id="results"><div className="container"><ResultsCarousel/></div></section>
+export default function Home(){
+  const latest=getInsights().slice(0,3);
+  return <><Header/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLdString(profilePageJsonLd)}}/><HomeProvider><main className="home-v3">
 
-  <section className="section expertise" id="expertise"><div className="container"><Label number={2}>Core expertise</Label><div className="section-heading"><h2>Built around Google<br/>and Meta.</h2><p>Deep platform fluency, paired with the broader acquisition judgment needed to connect media decisions to business outcomes.</p></div><div className="expertise-grid"><article><div className="platform-top"><span className="platform-mark">G</span><span>Primary specialization</span></div><h3>Google Ads</h3><p>Capture existing demand, control search intent, and build measurement that bidding systems can trust.</p><div className="tag-list">{["Search","Performance Max","Shopping","YouTube","Local Services Ads","Keyword Strategy","Search Term Analysis","Negative Keywords","Bidding Strategy","Conversion Tracking"].map(x=><span key={x}>{x}</span>)}</div><a className="text-link expertise-service-link" href="/google-ads-consultant">Google Ads consulting ↗</a></article><article><div className="platform-top"><span className="platform-mark">M</span><span>Primary specialization</span></div><h3>Meta Ads</h3><p>Create and scale demand through disciplined audience, creative, conversion, and measurement systems.</p><div className="tag-list">{["Prospecting","Lead Generation","Creative Testing","Retargeting","eCommerce","Audience Strategy","Pixel","Conversions API","Scaling"].map(x=><span key={x}>{x}</span>)}</div><a className="text-link expertise-service-link" href="/meta-ads-consultant">Meta Ads consulting ↗</a></article></div><div className="additional"><h3>Additional Paid Media Experience</h3><p>LinkedIn Ads <i/> TikTok Ads <i/> X Ads <i/> Microsoft Ads <i/> Snapchat</p></div></div></section>
+  <section className="hero hero-v4" id="top">
+    <div className="hero-copy">
+      <h1 className="eyebrow"><span/> Jahangir Ahmed · PPC, Google Ads &amp; Meta Ads Specialist</h1>
+      <HeroHeadline/>
+      <p className="hero-intro">Google Ads and Meta Ads for U.S. businesses that care about revenue, not clicks.</p>
+      <div className="hero-actions">
+        <BookingLink className="button" ctaLocation="hero">Book a Call</BookingLink>
+        <a className="button button-ghost" href="#leak-check">Check your numbers <span aria-hidden>↓</span></a>
+      </div>
+      <ul className="hero-proof" aria-label="Professional credentials">{[["9+","years in paid media"],["$5M+","ad spend managed"],["50+","accounts managed"],["3","markets: U.S., MENA, AU"]].map(([a,b])=><li key={b}><strong>{a}</strong><span>{b}</span></li>)}</ul>
+      <p className="hero-alt">Prefer a platform? <TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire me on Upwork ↗</TrackedLink> <i/> <TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></p>
+    </div>
+    <div className="portrait-stage"><Image className="portrait-cutout" src="/images/jahangir-cutout-2026.webp" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1357} priority sizes="(max-width: 900px) 100vw, 44vw"/><ProofCard/></div>
+  </section>
+  <section className="path-band" aria-label="Choose your business type"><div className="container"><PathPicker/></div></section>
 
-  <section className="section problems"><div className="container"><Label number={3}>Diagnosis</Label><div className="section-heading"><h2>Performance problems rarely live in one campaign setting.</h2><p>Good optimization means finding the constraint across the full acquisition system—not simply changing a bid.</p></div><div className="problem-grid">{problems.map((x,i)=><article key={x[0]}><span>0{i+1}</span><h3>{x[0]}</h3><p>{x[1]}</p></article>)}</div></div></section>
+  <section className="section leak-section" id="leak-check"><div className="container">
+    <div className="section-heading"><div><Kicker>Lead Leak Check</Kicker><h2>What does a customer really cost you?</h2></div><p>Move the sliders to match your account. You&apos;ll see the number most reports leave out, and where the money is most likely leaking.</p></div>
+    <LeakCheck/>
+  </div></section>
 
-  <section className="section cases" id="case-studies"><div className="container"><Label number={4}>Case studies</Label><div className="section-heading"><h2>Different businesses.<br/>Same discipline.</h2><p>Selected growth work across SaaS, eCommerce, subscription apps and multi-location service businesses.</p></div><CaseStudyGrid/><aside className="mid-cta"><div><h3>Have an account that looks busy but still isn&apos;t performing?</h3><p>I can audit the acquisition system, identify the biggest constraint, and prioritize what should change first.</p></div><div><TrackedLink className="button" href={links.upwork} event="upwork_click" details={{cta_location:"case_studies",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork ↗</TrackedLink><a className="text-link" href="#services">View Services ↓</a></div></aside></div></section>
+  <section className="section light results" id="results"><div className="container">
+    <div className="section-heading"><div><Kicker dark>Selected results</Kicker><h2>Same campaigns, two ways to measure them.</h2></div><p>Lead generation accounts I managed directly across healthcare and local services. Switch views to see why I judge performance by revenue, not lead count.</p></div>
+    <ResultsToggle/>
+  </div></section>
 
-  <section className="section light framework"><div className="container"><Label number={5} dark>Performance framework</Label><h2>How I think about<br/>paid acquisition.</h2><div className="framework-grid">{framework.map((x,i)=><article key={x[0]}><span>0{i+1}</span><h3>{x[0]}</h3><p>{x[1]}</p></article>)}</div></div></section>
+  <section className="section cases" id="case-studies"><div className="container">
+    <div className="section-heading"><div><Kicker>Case studies</Kicker><h2>Different businesses.<br/>Same discipline.</h2></div><p>Growth work across SaaS, eCommerce, subscription apps and multi-location service businesses.</p></div>
+    <PathCaseStudies/>
+    <div className="industry-strip" aria-label="Industry experience">
+      <h3>Industries I&apos;ve worked in</h3>
+      <div className="industry-strip-groups">{industries.map(([title,items])=><div key={title as string}><strong>{title as string}</strong><p>{(items as string[]).join(" · ")}</p></div>)}</div>
+    </div>
+  </div></section>
 
-  <section className="section industries"><div className="container"><Label number={6}>Industry experience</Label><h2>Experience across very<br/>different buying journeys.</h2><div className="industry-grid">{industries.map(([title,items],i)=><article key={title as string}><span>0{i+1}</span><h3>{title as string}</h3><ul>{(items as string[]).map(x=><li key={x}>{x}</li>)}</ul></article>)}</div></div></section>
+  <section className="section approach" id="approach"><div className="container">
+    <div className="section-heading"><div><Kicker>How I find the problem</Kicker><h2>Paid acquisition is one system. I check all of it.</h2></div><p>Performance problems rarely live in one campaign setting. Pick a stage to see where money usually leaks and what I look at.</p></div>
+    <SystemMap/>
+    <div className="platforms">
+      <article><span className="platform-mark">G</span><div><h3>Google Ads</h3><p>Capture existing demand, control search intent, and build measurement that bidding systems can trust.</p><p className="platform-tags">Search · Performance Max · Shopping · YouTube · Local Services Ads · Keyword strategy · Bidding · Conversion tracking</p><Link className="text-link" href="/google-ads-consultant">Google Ads consulting ↗</Link></div></article>
+      <article><span className="platform-mark">M</span><div><h3>Meta Ads</h3><p>Create and scale demand through disciplined audience, creative, conversion, and measurement systems.</p><p className="platform-tags">Prospecting · Lead generation · Creative testing · Retargeting · eCommerce · Pixel · Conversions API · Scaling</p><Link className="text-link" href="/meta-ads-consultant">Meta Ads consulting ↗</Link></div></article>
+    </div>
+    <p className="also">Also: LinkedIn Ads · TikTok Ads · X Ads · Microsoft Ads · Snapchat. Tools: Claude · Codex · ChatGPT · Google Ads Scripts · Looker Studio · GA4 · GTM.</p>
+    <div className="service-list compact">{services.map(x=><article key={x[0]}><h3>{x[0]}</h3><p>{x[1]}</p></article>)}</div>
+    <p className="service-links"><Link href="/google-ads-audit">Get a Google Ads audit ↗</Link><Link href="/google-ads-for-home-services">Google Ads for home services ↗</Link><Link href="/performance-marketing-specialist">Performance marketing strategy ↗</Link></p>
+  </div></section>
 
-  <section className="section operations"><div className="container ops-grid"><div><Label number={7}>Operations</Label><h2>Hands-on media buying.<br/>Systematic execution.</h2><p className="lead">Built through the operating reality of a <strong>50+ account multi-client portfolio</strong>—where consistency, prioritization, and clean diagnostics matter every day.</p><div className="tool-line"><span>AI &amp; operations tools</span><p>Claude · Codex · ChatGPT · Google Ads Scripts · Looker Studio · GA4 · GTM</p></div></div><div className="ops-groups">{operations.map((group,i)=><article key={group[0] as string}><span>0{i+1}</span><div><h3>{group[0] as string}</h3><p>{(group[1] as string[]).join(" · ")}</p></div></article>)}</div></div></section>
+  <section className="section light about" id="about"><div className="container">
+    <div className="about-grid">
+      <figure><div className="event-image"><Image src="/images/google-digital-guru-event.jpg" alt="Jahangir Ahmed attending the Google Digital Guru Program in 2018" width={1320} height={1306} sizes="(max-width:900px) 100vw, 44vw"/></div><figcaption>Google Digital Guru Program <span>•</span> 2018</figcaption></figure>
+      <div className="about-copy"><Kicker dark>About</Kicker><h2>Nine years in performance marketing. Still hands-on.</h2>
+        <p>I&apos;m Jahangir Ahmed, a performance marketer specializing in paid acquisition, campaign optimization, and conversion strategy.</p>
+        <p>Over 9+ years, I&apos;ve managed more than $5M in advertising spend across U.S. and international businesses, from focused local-service campaigns to eCommerce operations spending tens of thousands of dollars per day. My work spans agencies, SaaS, eCommerce, financial services, real estate, home services, and multi-account client portfolios.</p>
+        <p>The common thread is simple: understand what the business actually needs from paid media, find where performance is breaking down, and fix the acquisition system rather than chasing surface-level metrics.</p>
+        <p className="location">Based in Lahore <i/> Working remotely with U.S. and global businesses</p>
+        <div className="about-actions"><TrackedLink className="button dark-button" href={links.linkedin} event="linkedin_click" details={{cta_location:"about",link_text:"View LinkedIn"}} target="_blank" rel="noopener noreferrer">View LinkedIn <span aria-hidden>↗</span></TrackedLink><TrackedLink className="button resume-button" href="/resume/jahangir-ahmed-resume.pdf" event="resume_download" details={{cta_location:"about",file_name:"jahangir-ahmed-resume.pdf"}} download>Download Resume <span aria-hidden>↓</span></TrackedLink></div>
+      </div>
+    </div>
+    <div className="testimonial-grid" id="testimonials">
+      <blockquote><div className="quote-top"><span>Upwork client review</span><strong aria-label="5 out of 5 stars">★★★★★ <i>5.0</i></strong></div><p>“Jahangir did a great job working alongside me as our media buyer for Meta and Google Ads. He helped us create structure and set up everything correctly and efficiently.”</p><div className="quote-tags">Reliable · Collaborative · Committed to Quality</div><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"testimonials",link_text:"View Upwork Profile"}} target="_blank" rel="noopener noreferrer">View Upwork Profile ↗</TrackedLink></blockquote>
+      <blockquote><div className="quote-top"><span>LinkedIn recommendation</span></div><p>“Jahangir is well informed on the latest digital trends. His media buying &amp; PPC marketing skills are excellent. He&apos;s organized with his budgeting &amp; reporting and offers key insights on how to maximize ROAS.”</p><footer><strong>Abrar Chohan</strong><span>Former colleague</span></footer><TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"testimonials",link_text:"View LinkedIn"}} target="_blank" rel="noopener noreferrer">View LinkedIn ↗</TrackedLink></blockquote>
+    </div>
+    <div className="certifications" aria-label="Certifications"><h3>Certifications</h3><Certifications/></div>
+  </div></section>
 
-  <section className="section light about" id="about"><div className="container about-grid"><figure><div className="event-image"><Image src="/images/google-digital-guru-event.jpg" alt="Jahangir Ahmed attending the Google Digital Guru Program in 2018" width={1320} height={1306} sizes="(max-width:900px) 100vw, 44vw"/></div><figcaption>Google Digital Guru Program <span>•</span> 2018</figcaption></figure><div className="about-copy"><Label number={8} dark>About</Label><h2>Nine years in performance marketing. Still hands-on.</h2><p>I&apos;m Jahangir Ahmed, a performance marketer specializing in paid acquisition, campaign optimization, and conversion strategy.</p><p>Over 9+ years, I&apos;ve managed more than $5M in advertising spend across U.S. and international businesses, from focused local-service campaigns to eCommerce operations spending tens of thousands of dollars per day.</p><p>My work spans agencies, SaaS, eCommerce, financial services, real estate, home services, and multi-account client portfolios.</p><p>The common thread is simple: understand what the business actually needs from paid media, identify where performance is breaking down, and fix the acquisition system rather than chasing surface-level metrics.</p><p>My primary market experience is with U.S. businesses, alongside additional work across MENA and international markets.</p><div className="about-stats">{[["9+","Years"],["$5M+","Managed"],["U.S.","Focused"]].map(x=><div key={x[1]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</div><p className="location">Based in Lahore <i/> Working remotely with U.S. and global businesses</p><div className="about-actions"><TrackedLink className="button dark-button" href={links.linkedin} event="linkedin_click" details={{cta_location:"about",link_text:"View LinkedIn"}} target="_blank" rel="noopener noreferrer">View LinkedIn ↗</TrackedLink><TrackedLink className="button resume-button" href="/resume/jahangir-ahmed-resume.pdf" event="resume_download" details={{cta_location:"about",file_name:"jahangir-ahmed-resume.pdf"}} download>Download Resume ↓</TrackedLink></div></div></div></section>
+  <section className="section insights-row" id="insights"><div className="container">
+    <div className="section-top"><div><Kicker>Latest from Insights</Kicker><h2>How I think about the work.</h2></div><Link className="text-link" href="/insights">All articles ↗</Link></div>
+    <div className="insight-cards">{latest.map(a=><Link key={a.slug} href={`/insights/${a.slug}`} className="insight-card"><time dateTime={a.publishedAt}>{formatPublicationDate(a.publishedAt)}</time><h3>{a.title}</h3><p>{a.description}</p><span>Read article ↗</span></Link>)}</div>
+  </div></section>
 
-  <section className="section certifications"><div className="container"><Label number={9}>Certifications</Label><div className="section-heading"><h2>The foundation goes<br/>back to 2018.</h2><p>Google Digital Guru product tracks spanning core, advanced, and expert-level training.</p></div><Certifications/></div></section>
+  <section className="section contact" id="contact"><div className="container">
+    <div className="section-heading"><div><Kicker>How we&apos;d start</Kicker><h2>Need someone who can find what&apos;s actually holding paid media back?</h2></div><p>Whether you&apos;re rescuing an underperforming account, cleaning up years of campaign clutter, or scaling something that already works, it starts the same way.</p></div>
+    <ol className="steps">{steps.map(([t,d],i)=><li key={t}><span>Step {i+1}</span><h3>{t}</h3><p>{d}</p></li>)}</ol>
+    <div className="contact-grid">
+      <div className="contact-options">
+        <h3>Talk it through</h3>
+        <p>Pick a 20-minute slot on my calendar, or send the form and I&apos;ll reply by email.</p>
+        <BookingLink className="button" ctaLocation="contact">Book a Call</BookingLink>
+        <ul>
+          <li><span>Email</span><EmailLink ctaLocation="final_cta" linkText="jahangirahmed0692@gmail.com" className="email-link">jahangirahmed0692@gmail.com</EmailLink></li>
+          <li><span>Upwork</span><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"final_cta",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire me on Upwork ↗</TrackedLink></li>
+          <li><span>LinkedIn</span><TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"final_cta",link_text:"Connect on LinkedIn"}} target="_blank" rel="noopener noreferrer">Connect on LinkedIn ↗</TrackedLink></li>
+        </ul>
+      </div>
+      <LeadForm/>
+    </div>
+  </div></section>
 
-  <section className="section light testimonials" id="testimonials"><div className="container"><Label number={10} dark>Testimonials</Label><h2>What people I&apos;ve<br/>worked with say.</h2><div className="testimonial-grid"><blockquote><div className="review-label">Upwork client review</div><div className="quote-top"><span>Upwork testimonial</span><strong aria-label="5 out of 5 stars">★★★★★ <i>5.0</i></strong></div><p>“Jahangir did a great job working alongside me as our media buyer for Meta and Google Ads. He helped us create structure and set up everything correctly and efficiently.”</p><div className="quote-tags">Reliable · Collaborative · Committed to Quality</div><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"testimonials",link_text:"View Upwork Profile"}} target="_blank" rel="noopener noreferrer">View Upwork Profile ↗</TrackedLink></blockquote><blockquote><div className="quote-top"><span>LinkedIn recommendation</span></div><p>“Jahangir is well informed on the latest digital trends. His media buying &amp; PPC marketing skills are excellent. He&apos;s organized with his budgeting &amp; reporting and offers key insights on how to maximize ROAS.”</p><footer><strong>Abrar Chohan</strong><span>Former colleague</span></footer><TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"testimonials",link_text:"View LinkedIn"}} target="_blank" rel="noopener noreferrer">View LinkedIn ↗</TrackedLink></blockquote></div><div className="testimonial-cta"><span>Need the same level of strategic ownership?</span><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"testimonials",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork ↗</TrackedLink></div></div></section>
-
-  <section className="section services" id="services"><div className="container"><Label number={11}>Services</Label><h2>Ways we can<br/>work together.</h2><div className="service-list">{services.map((x,i)=><article key={x[0]}><span>0{i+1}</span><h3>{x[0]}</h3><p>{x[1]}</p></article>)}</div><a className="text-link service-detail-link" href="/google-ads-consultant">Explore Google Ads consulting ↗</a><p><Link className="text-link service-detail-link" href="/meta-ads-consultant">Explore Meta Ads consulting ↗</Link></p><p><Link className="text-link service-detail-link" href="/google-ads-audit">Get a Google Ads audit ↗</Link></p><p><Link className="text-link service-detail-link" href="/google-ads-for-home-services">Google Ads for roofing, tree service and other home services ↗</Link></p><p><Link className="text-link service-detail-link" href="/performance-marketing-specialist">Explore performance marketing strategy and cross-channel management ↗</Link></p></div></section>
-
-  <section className="fit"><div className="container fit-grid"><div><p className="kicker">Ideal fit</p><h2>A strong fit when paid media needs more than routine management.</h2></div><ul>{["Already investing in paid acquisition","Want stronger performance and experienced ownership","Have messy or legacy campaign structures","Question lead quality or search intent","Need stronger Meta creative and acquisition strategy","Have unreliable conversion tracking","Want a second opinion before increasing spend","Need cross-functional communication"].map(x=><li key={x}><span>✓</span>{x}</li>)}</ul></div></section>
-
-  <section className="section final-cta"><div className="container"><p className="kicker">Let&apos;s talk performance</p><h2>Need someone who can find what&apos;s actually holding paid media back?</h2><p>Whether you&apos;re trying to rescue an underperforming account, clean up years of campaign clutter, or scale something that&apos;s already working, I focus on finding the real constraint.</p><ContactLinks/><EmailLink ctaLocation="final_cta" linkText="jahangirahmed0692@gmail.com" className="email-link">jahangirahmed0692@gmail.com</EmailLink></div></section>
- </main><SiteFooter/></>}
+ </main></HomeProvider><SiteFooter/></>;
+}
