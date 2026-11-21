@@ -1,5 +1,7 @@
 import type { ComponentType } from "react";
 import GoogleAdsAuditChecklist from "./google-ads-audit-checklist";
+import GoogleAdsConversionTracking from "./google-ads-conversion-tracking";
+import PerformanceMaxVsSearch from "./performance-max-vs-search";
 
 export type Insight = {
   slug: string;
@@ -33,7 +35,40 @@ export const insights: readonly Insight[] = [{
     href: "/google-ads-audit",
     linkText: "Get a Google Ads audit",
   },
+  relatedSlugs: ["google-ads-conversion-tracking", "performance-max-vs-search"],
   Content: GoogleAdsAuditChecklist,
+}, {
+  slug: "performance-max-vs-search",
+  title: "Performance Max vs Search: How I Decide Where Google Ads Budget Goes",
+  introduction: "Performance Max and Search campaigns do different jobs and need different conditions to work. Here is how I decide which one an account should rely on, and the PMax risks I check before trusting its numbers.",
+  metadataTitle: "Performance Max vs Search: Which Should You Use?",
+  description: "Performance Max vs Search campaigns compared: control, data needs, reporting and risks like brand cannibalization, plus how I decide where Google Ads budget goes.",
+  publishedAt: "2026-11-21",
+  readingMinutes: 6,
+  authorBio: "9+ years across Google Ads, Meta Ads and paid acquisition, with $5M+ in managed media spend.",
+  relatedSlugs: ["google-ads-conversion-tracking", "google-ads-audit-checklist"],
+  cta: {
+    heading: "Not sure if Performance Max is really adding value?",
+    href: "/google-ads-audit",
+    linkText: "See what a Google Ads audit covers",
+  },
+  Content: PerformanceMaxVsSearch,
+}, {
+  slug: "google-ads-conversion-tracking",
+  title: "How to Fix Google Ads Conversion Tracking: What I Check First",
+  introduction: "Every bidding decision in Google Ads depends on conversion data. If it is duplicated, missing or measuring the wrong thing, the account optimizes toward the wrong result. This is the process I use to find and fix it.",
+  metadataTitle: "How to Fix Google Ads Conversion Tracking (8 Steps)",
+  description: "Fix Google Ads conversion tracking step by step: duplicate conversions, GA4 imports, GTM testing, call tracking, enhanced conversions and offline lead quality.",
+  publishedAt: "2026-11-21",
+  readingMinutes: 6,
+  authorBio: "9+ years across Google Ads, Meta Ads and paid acquisition, with $5M+ in managed media spend.",
+  relatedSlugs: ["google-ads-audit-checklist", "performance-max-vs-search"],
+  cta: {
+    heading: "Think your conversion tracking might be off?",
+    href: "/google-ads-audit",
+    linkText: "Start with a Google Ads audit",
+  },
+  Content: GoogleAdsConversionTracking,
 }];
 
 export function getInsight(slug: string) {
