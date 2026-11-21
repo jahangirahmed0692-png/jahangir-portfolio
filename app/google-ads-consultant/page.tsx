@@ -167,6 +167,7 @@ export default function GoogleAdsConsultantPage() {
           <p className="kicker">Questions before getting started</p>
           <div className={styles.sectionHeading}><h2>Frequently asked questions</h2><p>What to expect from consulting, account management and a focused review of your Google Ads performance.</p></div>
           <div className={styles.faqs}>{faqs.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div>
+          <p><Link className="text-link" href="/google-ads-audit">See what a Google Ads audit includes ↗</Link> <Link className="text-link" href="/google-ads-for-home-services">Google Ads for home service businesses ↗</Link> <Link className="text-link" href="/meta-ads-consultant">Meta Ads consulting ↗</Link></p>
         </div>
       </section>
 

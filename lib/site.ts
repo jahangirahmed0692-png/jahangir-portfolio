@@ -10,11 +10,17 @@ export const pagesUpdatedAt = {
   home: "2026-11-21",
   googleAdsConsultant: "2026-11-21",
   performanceMarketingSpecialist: "2026-11-21",
+  metaAdsConsultant: "2026-11-21",
+  googleAdsAudit: "2026-11-21",
+  googleAdsHomeServices: "2026-11-21",
 };
 
 /** Site-wide navigation for internal linking (header + footer). */
 export const primaryPages = [
   { label: "Google Ads Consultant", href: "/google-ads-consultant" },
+  { label: "Meta Ads Consultant", href: "/meta-ads-consultant" },
+  { label: "Google Ads Audit", href: "/google-ads-audit" },
+  { label: "Google Ads for Home Services", href: "/google-ads-for-home-services" },
   { label: "Performance Marketing", href: "/performance-marketing-specialist" },
   { label: "Insights", href: "/insights" },
 ] as const;

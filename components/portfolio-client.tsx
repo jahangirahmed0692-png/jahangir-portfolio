@@ -82,7 +82,7 @@ function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;chil
 export function Header({ homeHrefPrefix="", ctaLocation="header" }:{ homeHrefPrefix?:string; ctaLocation?:string }){
   const [open,setOpen]=useState(false); const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const on=()=>setScrolled(scrollY>16);on();addEventListener("scroll",on,{passive:true});return()=>removeEventListener("scroll",on)},[]);
-  const nav=[["Results",`${homeHrefPrefix}#results`],["Case Studies",`${homeHrefPrefix}#case-studies`],["Google Ads","/google-ads-consultant"],["Performance Marketing","/performance-marketing-specialist"],["Insights","/insights"],["About",`${homeHrefPrefix}#about`]];
+  const nav=[["Results",`${homeHrefPrefix}#results`],["Google Ads","/google-ads-consultant"],["Meta Ads","/meta-ads-consultant"],["Performance Marketing","/performance-marketing-specialist"],["Insights","/insights"],["About",`${homeHrefPrefix}#about`]];
   return <header className={`site-header ${scrolled?"scrolled":""}`}>
     <a className="brand" href={`${homeHrefPrefix}#top`} aria-label="Jahangir Ahmed, home"><span className="monogram">JA</span><span>Jahangir Ahmed</span></a>
     <nav id="mobile-nav" className={open?"open":""} aria-label="Primary navigation">{nav.map(([x,h])=><a key={h} href={h} onClick={()=>setOpen(false)}>{x}</a>)}</nav>
