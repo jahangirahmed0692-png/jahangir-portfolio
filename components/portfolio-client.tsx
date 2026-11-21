@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { caseStudies, certifications, links, performanceAdsCertification, results, type CaseStudy } from "@/data/content";
+import { caseStudies, certifications, links, performanceAdsCertification, type CaseStudy } from "@/data/content";
 import { track } from "@/lib/tracking";
-import resultsStyles from "./results.module.css";
 
 type TrackedLinkProps = {
   href: string;
@@ -79,32 +78,32 @@ function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;chil
   return <div className="overlay" role="presentation" onMouseDown={(e)=>{if(e.target===e.currentTarget)onClose()}}><div className="dialog" role="dialog" aria-modal="true" aria-label={label} tabIndex={-1} ref={ref}><button className="close" onClick={onClose} aria-label="Close dialog">×</button>{children}</div></div>;
 }
 
+/** Primary call to action. Opens the Google Calendar booking page when NEXT_PUBLIC_BOOKING_URL is set, otherwise jumps to the homepage form. */
+export function BookingLink({ ctaLocation, className="", children }:{ ctaLocation:string; className?:string; children:React.ReactNode }){
+  const external=Boolean(links.booking);
+  return <TrackedLink className={className} href={links.booking||"/#contact"} event="booking_click" details={{cta_location:ctaLocation,destination:external?"calendar":"form"}} target={external?"_blank":undefined} rel={external?"noopener noreferrer":undefined}>{children} <span aria-hidden>{external?"↗":"→"}</span></TrackedLink>;
+}
+
+/** Slim bottom bar on phones, shown once the visitor scrolls past the first screen. */
+function StickyCta({ ctaLocation }:{ ctaLocation:string }){
+  const [show,setShow]=useState(false);
+  useEffect(()=>{const on=()=>setShow(scrollY>innerHeight*.8);on();addEventListener("scroll",on,{passive:true});return()=>removeEventListener("scroll",on)},[]);
+  return <div className={`sticky-cta${show?" show":""}`} inert={!show}><span>20-minute call about your account</span><BookingLink className="button" ctaLocation={ctaLocation}>Book a Call</BookingLink></div>;
+}
+
 export function Header({ homeHrefPrefix="", ctaLocation="header" }:{ homeHrefPrefix?:string; ctaLocation?:string }){
   const [open,setOpen]=useState(false); const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const on=()=>setScrolled(scrollY>16);on();addEventListener("scroll",on,{passive:true});return()=>removeEventListener("scroll",on)},[]);
   const nav=[["Results",`${homeHrefPrefix}#results`],["Google Ads","/google-ads-consultant"],["Meta Ads","/meta-ads-consultant"],["Performance Marketing","/performance-marketing-specialist"],["Insights","/insights"],["About",`${homeHrefPrefix}#about`]];
-  return <header className={`site-header ${scrolled?"scrolled":""}`}>
+  return <><header className={`site-header ${scrolled?"scrolled":""}`}>
     <a className="brand" href={`${homeHrefPrefix}#top`} aria-label="Jahangir Ahmed, home"><span className="monogram">JA</span><span>Jahangir Ahmed</span></a>
     <nav id="mobile-nav" className={open?"open":""} aria-label="Primary navigation">{nav.map(([x,h])=><a key={h} href={h} onClick={()=>setOpen(false)}>{x}</a>)}</nav>
-    <TrackedLink className="button button-small header-cta" href={links.upwork} event="upwork_click" details={{cta_location:ctaLocation,link_text:"Hire Me"}} target="_blank" rel="noopener noreferrer">Hire Me <span aria-hidden>↗</span></TrackedLink>
+    <BookingLink className="button button-small header-cta" ctaLocation={ctaLocation}>Book a Call</BookingLink>
     <button className="menu" onClick={()=>setOpen(!open)} aria-expanded={open} aria-controls="mobile-nav" aria-label="Toggle navigation"><span/><span/></button>
-  </header>;
+  </header><StickyCta ctaLocation={`${ctaLocation}_sticky`}/></>;
 }
 
-export function ResultsCarousel(){
-  const featuredResults=results.filter((result)=>result.featured);
-  const [active,setActive]=useState(0);
-  const selectResult=(index:number,industry:string)=>{
-    setActive(index);
-    track("results_interaction",{interaction:"account_select",account:industry,position:index+1});
-  };
-  return <>
-    <div className={resultsStyles.intro}><div><p className="kicker dark">01 / Selected results</p><h2>Lead generation tied<br/>to commercial outcomes.</h2></div><p className={`lead dark ${resultsStyles.introLead}`}>Selected accounts I directly managed across healthcare and local-service businesses, with performance evaluated beyond raw lead volume.</p></div>
-    <div className={resultsStyles.comparison} aria-label="Selected account outcomes">{featuredResults.map((result,index)=><article className={`${resultsStyles.sheet}${active===index?` ${resultsStyles.active}`:""}`} key={`${result.industry}${index}`}><button className={resultsStyles.heading} type="button" aria-pressed={active===index} onClick={()=>selectResult(index,result.industry)}><span>0{index+1}</span><strong>{result.industry}</strong><small>Campaigns directly managed</small></button><div className={resultsStyles.primary}><div><strong>{result.leads}</strong><span>Qualified leads</span></div><div><strong>{result.cpl}</strong><span>CPL</span></div><div><strong>{result.revenuePerLead}</strong><span>Revenue / qualified lead</span></div></div><div className={resultsStyles.support}><span>{result.period}</span><strong>{result.revenue} <small>tracked revenue</small></strong></div></article>)}</div>
-  </>;
-}
-
-export function CaseStudyGrid(){
+export function CaseStudyGrid({ order }:{ order?:number[] }={}){
   const [active,setActive]=useState<CaseStudy|null>(null);
   const summaries=["Rebuilt fragmented acquisition signals, tightened targeting, and aligned campaign measurement with the funnel.","Built a lower-friction acquisition path focused on affordable sign-ups and paid-user conversion.","Optimized acquisition across the full journey from install through purchase and customer value."];
   const openCaseStudy=(caseStudy:CaseStudy)=>{
@@ -115,7 +114,7 @@ export function CaseStudyGrid(){
     });
   };
   return <>
-    <div className="case-grid">{caseStudies.map((c,i)=><button className="case-card" key={c.title} onClick={()=>openCaseStudy(c)}><span className="case-no">0{i+1}</span><p className="kicker">{c.brand?`${c.brand} / ${c.category}`:c.category}</p><h3>{c.title}</h3><p className="case-summary">{c.summary??summaries[i]}</p><div className="case-metrics">{c.metrics.slice(0,c.trackingName?4:3).map(m=><div key={`${m[0]}-${m[1]}`}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div><span className="case-open">View case study <b>↗</b></span></button>)}</div>
+    <div className="case-grid">{(order??caseStudies.map((_,i)=>i)).map(i=>[caseStudies[i],i] as const).map(([c,i])=><button className="case-card" key={c.title} onClick={()=>openCaseStudy(c)}><span className="case-no">0{i+1}</span><p className="kicker">{c.brand?`${c.brand} / ${c.category}`:c.category}</p><h3>{c.title}</h3><p className="case-summary">{c.summary??summaries[i]}</p><div className="case-metrics">{c.metrics.slice(0,c.trackingName?4:3).map(m=><div key={`${m[0]}-${m[1]}`}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div><span className="case-open">View case study <b>↗</b></span></button>)}</div>
     {active&&<Dialog label={`${active.brand?`${active.brand} `:""}${active.title} case study`} onClose={()=>setActive(null)}>
       <p className="kicker">{active.brand?`${active.brand} / ${active.category}`:active.category}</p>
       <h2>{active.title}</h2>

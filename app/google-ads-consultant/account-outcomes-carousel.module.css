@@ -1,6 +1,6 @@
 .carousel{min-width:0}
 .controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.controls>span{color:#68756e;font:10px var(--font-plex),monospace;letter-spacing:.08em}
+.controls>span{color:#68756e;font:12px var(--font-plex),monospace;letter-spacing:.08em}
 .controls>div{display:flex;gap:7px}
 .controls button{width:42px;height:42px;border:1px solid #c5ccc5;background:transparent;color:var(--dark-text);font-size:18px;cursor:pointer;transition:.2s}
 .controls button:hover:not(:disabled){background:var(--dark-text);color:white}
@@ -9,19 +9,19 @@
 .rail::-webkit-scrollbar{display:none}
 .card{display:flex;flex-direction:column;scroll-snap-align:start;min-width:0;height:370px;padding:clamp(24px,2.5vw,34px);border:1px solid #cbd1ca;background:white}
 .card header{display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;padding-bottom:24px;border-bottom:1px solid #dce0da}
-.card header>span{padding-top:3px;color:#758079;font:10px var(--font-plex),monospace}
+.card header>span{padding-top:3px;color:#758079;font:12px var(--font-plex),monospace}
 .card h3{margin:0;font-size:19px;line-height:1.3}
-.card header small{display:block;margin-top:6px;color:#68756e;font:9px var(--font-plex),monospace;text-transform:uppercase;letter-spacing:.07em}
+.card header small{display:block;margin-top:6px;color:#68756e;font:12px var(--font-plex),monospace;text-transform:uppercase;letter-spacing:.07em}
 .performance{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:36px 0}
 .performance>div{min-width:0}
 .performance strong{display:block;color:#137a54;font:550 clamp(29px,3vw,42px)/1 var(--font-plex),monospace;letter-spacing:-.04em}
-.performance span{display:block;margin-top:9px;color:#657169;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
-.card footer{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-top:auto;padding-top:18px;border-top:1px solid #dce0da;color:#5f6c65;font:500 10px/1.4 var(--font-plex),monospace;text-transform:uppercase}
+.performance span{display:block;margin-top:9px;color:#657169;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.card footer{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-top:auto;padding-top:18px;border-top:1px solid #dce0da;color:#5f6c65;font:500 12px/1.4 var(--font-plex),monospace;text-transform:uppercase}
 .card footer strong{text-align:right;color:#263a32;font-size:13px}
-.card footer small{display:block;margin-top:3px;color:#69756f;font:9px var(--font-inter),sans-serif;font-weight:400}
+.card footer small{display:block;margin-top:3px;color:#69756f;font:12px var(--font-inter),sans-serif;font-weight:400}
 .snapshot{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin:18px 0 0}
 .snapshot>div{min-width:0;padding:15px 0;border-bottom:1px solid #e2e5e0}
-.snapshot dt{color:#68756e;font:9px var(--font-plex),monospace;text-transform:uppercase;letter-spacing:.07em}
+.snapshot dt{color:#68756e;font:12px var(--font-plex),monospace;text-transform:uppercase;letter-spacing:.07em}
 .snapshot dd{margin:7px 0 0;color:#18392d;font-size:13px;line-height:1.4;font-weight:650;overflow-wrap:anywhere}
 .rail:focus-visible{outline:2px solid #197653;outline-offset:4px}
 
