@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/components/site-footer";
+import { personRef } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EmailLink, Header, TrackedLink } from "@/components/portfolio-client";
@@ -17,9 +19,9 @@ export const metadata: Metadata = {
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "website", title, description, url: pageUrl, siteName: "Jahangir Ahmed",
-    images: [{ url: `${siteUrl}/og.png`, width: 1200, height: 630, alt: "Jahangir Ahmed — Performance Marketing Specialist" }],
+    images: [{ url: `${siteUrl}/og.jpg`, width: 1200, height: 630, alt: "Jahangir Ahmed — Performance Marketing Specialist" }],
   },
-  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og.png`] },
+  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og.jpg`] },
 };
 
 const responsibilities = [
@@ -73,11 +75,7 @@ const schema = {
       "@type": "Service", "@id": `${pageUrl}#service`, url: pageUrl,
       name: "Performance marketing consulting and paid media management", description,
       serviceType: "Cross-channel paid acquisition, measurement and optimization",
-      provider: {
-        "@type": "Person", name: "Jahangir Ahmed", jobTitle: "Performance Marketing Specialist",
-        url: `${siteUrl}/`, sameAs: [links.linkedin, links.upwork],
-        knowsAbout: ["Google Ads", "Meta Ads", "Paid acquisition", "Conversion tracking", "GA4", "Google Tag Manager", "Lifecycle marketing"],
-      },
+      provider: personRef,
     },
   ],
 };
@@ -188,5 +186,6 @@ export default function PerformanceMarketingSpecialistPage() {
       </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema).replace(/</g,"\\u003c")}} />
     </main>
+    <SiteFooter location="performance_marketing_specialist_footer" />
   </>;
 }

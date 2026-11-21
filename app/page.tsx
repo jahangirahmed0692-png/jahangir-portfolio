@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { CaseStudyGrid, Certifications, ContactLinks, EmailLink, Header, ResultsCarousel, TrackedLink } from "@/components/portfolio-client";
 import { links, problems } from "@/data/content";
+import { SiteFooter } from "@/components/site-footer";
+import { jsonLdString, personRef, siteUrl, websiteId } from "@/lib/site";
 
 const framework=[["Traffic","Are we reaching the right market?"],["Intent","Are we attracting people likely to buy?"],["Conversion","Can the traffic become a customer?"],["Attribution","Are we measuring the right actions?"],["Economics","Does acquisition make financial sense?"],["Scale","Where can investment increase without destroying efficiency?"]];
 const industries=[
@@ -27,20 +29,17 @@ const services=[
 const profilePageJsonLd={
   "@context":"https://schema.org",
   "@type":"ProfilePage",
-  url:"https://jahangirahmed.com/",
-  mainEntity:{
-    "@type":"Person",
-    name:"Jahangir Ahmed",
-    jobTitle:"Performance Marketing Specialist",
-    url:"https://jahangirahmed.com/",
-    sameAs:[links.linkedin,links.upwork],
-  },
+  "@id":`${siteUrl}/#profile`,
+  url:`${siteUrl}/`,
+  name:"Jahangir Ahmed",
+  isPartOf:{"@id":websiteId},
+  mainEntity:personRef,
 };
 
 function Label({number,children,dark=false}:{number:number;children:React.ReactNode;dark?:boolean}){return <p className={`kicker${dark?" dark":""}`}>{String(number).padStart(2,"0")} / {children}</p>}
 
-export default function Home(){return <><Header/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(profilePageJsonLd).replace(/</g,"\\u003c")}}/><main>
-  <section className="hero" id="top"><div className="hero-copy"><h1 className="eyebrow"><span/> Performance Marketing Specialist</h1><p className="hero-title"><span>$5M+ Managed.</span><br/>9+ Years in Paid Media.</p><p className="hero-intro">I help businesses turn Google Ads, Meta Ads and paid acquisition into measurable growth through stronger campaign strategy, cleaner conversion data, better customer intent and continuous performance optimization.</p><p className="hero-meta">U.S.-Focused <i/> Google Ads <i/> Meta Ads <i/> Paid Acquisition</p><div className="hero-actions"><a className="button" href="#results">View Results <span aria-hidden>↓</span></a><TrackedLink className="text-link" href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink></div><TrackedLink className="linkedin-mini" href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></div><div className="portrait-wrap"><Image className="portrait" src="/images/jahangir-headshot-2026.png" alt="Jahangir Ahmed, Performance Marketing Specialist" width={1086} height={1448} priority sizes="(max-width: 900px) 100vw, 44vw"/><div className="portrait-metric"><strong>9+ YEARS</strong><span>Paid Media</span></div></div></section>
+export default function Home(){return <><Header/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLdString(profilePageJsonLd)}}/><main>
+  <section className="hero" id="top"><div className="hero-copy"><h1 className="eyebrow"><span/> Jahangir Ahmed · PPC, Google Ads &amp; Meta Ads Specialist</h1><p className="hero-title"><span>$5M+ Managed.</span><br/>9+ Years in Paid Media.</p><p className="hero-intro">I help businesses turn Google Ads, Meta Ads and paid acquisition into measurable growth through stronger campaign strategy, cleaner conversion data, better customer intent and continuous performance optimization.</p><p className="hero-meta">U.S.-Focused <i/> Google Ads <i/> Meta Ads <i/> Paid Acquisition</p><div className="hero-actions"><a className="button" href="#results">View Results <span aria-hidden>↓</span></a><TrackedLink className="text-link" href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire Me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire Me on Upwork <span aria-hidden>↗</span></TrackedLink></div><TrackedLink className="linkedin-mini" href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></div><div className="portrait-wrap"><Image className="portrait" src="/images/jahangir-headshot-2026.png" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1448} priority sizes="(max-width: 900px) 100vw, 44vw"/><div className="portrait-metric"><strong>9+ YEARS</strong><span>Paid Media</span></div></div></section>
   <section className="credibility" aria-label="Professional credentials">{[["9+","Years Experience"],["$5M+","Paid Media Managed"],["50+","Multi-Account Portfolio"],["3 Markets","U.S. • MENA • Australia"]].map(x=><div key={x[1]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</section>
 
   <section className="section light results" id="results"><div className="container"><ResultsCarousel/></div></section>
@@ -68,4 +67,4 @@ export default function Home(){return <><Header/><script type="application/ld+js
   <section className="fit"><div className="container fit-grid"><div><p className="kicker">Ideal fit</p><h2>A strong fit when paid media needs more than routine management.</h2></div><ul>{["Already investing in paid acquisition","Want stronger performance and experienced ownership","Have messy or legacy campaign structures","Question lead quality or search intent","Need stronger Meta creative and acquisition strategy","Have unreliable conversion tracking","Want a second opinion before increasing spend","Need cross-functional communication"].map(x=><li key={x}><span>✓</span>{x}</li>)}</ul></div></section>
 
   <section className="section final-cta"><div className="container"><p className="kicker">Let&apos;s talk performance</p><h2>Need someone who can find what&apos;s actually holding paid media back?</h2><p>Whether you&apos;re trying to rescue an underperforming account, clean up years of campaign clutter, or scale something that&apos;s already working, I focus on finding the real constraint.</p><ContactLinks/><EmailLink ctaLocation="final_cta" linkText="jahangirahmed0692@gmail.com" className="email-link">jahangirahmed0692@gmail.com</EmailLink></div></section>
- </main><footer className="footer"><div><a className="brand" href="#top"><span className="monogram">JA</span><span><strong>Jahangir Ahmed</strong><small>Performance Marketing Specialist</small></span></a><p>Google Ads • Meta Ads • Paid Media Strategy • Conversion Tracking</p></div><div className="footer-links"><Link href="/insights">Insights</Link><TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"footer",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink><TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"footer",link_text:"Upwork"}} target="_blank" rel="noopener noreferrer">Upwork ↗</TrackedLink><EmailLink ctaLocation="footer" linkText="Email">Email ↗</EmailLink></div><small>© {new Date().getFullYear()} Jahangir Ahmed</small></footer></>}
+ </main><SiteFooter/></>}
