@@ -2,7 +2,7 @@
 .title{margin:0;font-size:clamp(42px,4.6vw,74px);line-height:1;letter-spacing:-.05em;font-weight:550;text-wrap:balance}
 .profit{color:var(--mint)}
 .struck{position:relative;color:#8d948f;white-space:nowrap}
-.struck::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.075em;background:#f08a7a;transform-origin:left center;animation:strike .7s cubic-bezier(.6,0,.2,1) .6s both}
+.struck::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.075em;background:var(--amber);transform-origin:left center;animation:strike .7s cubic-bezier(.6,0,.2,1) .6s both}
 @keyframes strike{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 .flip{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;min-height:1.6em;margin:18px 0 0;font:500 clamp(18px,1.7vw,24px)/1.3 var(--font-plex),monospace}
@@ -12,11 +12,13 @@
 @keyframes flipIn{from{opacity:0;transform:translateY(.45em) rotateX(-70deg)}to{opacity:1;transform:none}}
 
 /* Proof card over the portrait */
-.card{position:absolute;left:0;bottom:0;display:grid;gap:10px;width:min(300px,78%);padding:18px 20px 16px;background:rgba(13,15,15,.92);border-top:1px solid var(--line);border-right:1px solid var(--line);backdrop-filter:blur(10px)}
+.card{position:absolute;z-index:2;left:clamp(-56px,-3.5vw,-16px);bottom:clamp(28px,5vw,64px);display:grid;gap:10px;width:min(300px,78%);padding:18px 20px 16px;border:1px solid rgba(167,243,208,.22);background:rgba(17,20,19,.88);box-shadow:0 24px 60px rgba(0,0,0,.55);backdrop-filter:blur(14px)}
 .cardKicker{color:#7d8782;font:500 12px var(--font-plex),monospace;text-transform:uppercase;letter-spacing:.08em}
 .cardBody{display:grid;gap:4px;min-height:84px;animation:cardIn .45s ease both}
 .cardBody strong{color:var(--mint);font:600 clamp(24px,2.3vw,32px)/1.05 var(--font-plex),monospace;letter-spacing:-.03em}
-.cardBody span{color:var(--paper);font-size:15px}
+.cardBody>span{color:var(--paper);font-size:15px}
+.cardBody strong span{color:inherit;font:inherit}
+.cardBody strong :global(.before){color:var(--amber)}
 .cardBody small{color:var(--muted);font-size:13px}
 @keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .dots{display:flex;gap:6px}
@@ -25,4 +27,4 @@
 .dots button:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
 
 @media(prefers-reduced-motion:reduce){.struck::after,.flipValue,.flipLabel,.cardBody{animation:none}}
-@media(max-width:650px){.title{font-size:clamp(38px,11vw,52px)}.card{width:min(280px,86%)}}
+@media(max-width:650px){.title{font-size:clamp(38px,11vw,52px)}.card{left:12px;bottom:16px;width:min(280px,86%)}}

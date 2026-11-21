@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Delta } from "@/components/portfolio-client";
 import s from "./hero.module.css";
 
 /* All figures come from data/content.ts (results and case studies). */
@@ -65,7 +66,7 @@ export function ProofCard() {
   return <div className={s.card} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} role="group" aria-roledescription="carousel" aria-label="Client results">
     <span className={s.cardKicker}>Client result</span>
     <div className={s.cardBody} key={i} aria-live={hover ? "polite" : "off"}>
-      <strong>{big}</strong>
+      <strong><Delta value={big}/></strong>
       <span>{what}</span>
       <small>{where}</small>
     </div>

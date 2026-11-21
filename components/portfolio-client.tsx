@@ -79,6 +79,13 @@ function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;chil
 }
 
 /** Primary call to action. Opens the Google Calendar booking page when NEXT_PUBLIC_BOOKING_URL is set, otherwise jumps to the homepage form. */
+/** Renders "2x → 6x" with the "before" value in the amber accent. */
+export function Delta({ value }:{ value:string }){
+  const parts=value.split("→");
+  if(parts.length!==2)return <>{value}</>;
+  return <><span className="before">{parts[0].trim()}</span> <span className="delta-arrow" aria-label="to">→</span> {parts[1].trim()}</>;
+}
+
 export function BookingLink({ ctaLocation, className="", children }:{ ctaLocation:string; className?:string; children:React.ReactNode }){
   const external=Boolean(links.booking);
   return <TrackedLink className={className} href={links.booking||"/#contact"} event="booking_click" details={{cta_location:ctaLocation,destination:external?"calendar":"form"}} target={external?"_blank":undefined} rel={external?"noopener noreferrer":undefined}>{children} <span aria-hidden>{external?"↗":"→"}</span></TrackedLink>;
@@ -114,12 +121,12 @@ export function CaseStudyGrid({ order }:{ order?:number[] }={}){
     });
   };
   return <>
-    <div className="case-grid">{(order??caseStudies.map((_,i)=>i)).map(i=>[caseStudies[i],i] as const).map(([c,i])=><button className="case-card" key={c.title} onClick={()=>openCaseStudy(c)}><span className="case-no">0{i+1}</span><p className="kicker">{c.brand?`${c.brand} / ${c.category}`:c.category}</p><h3>{c.title}</h3><p className="case-summary">{c.summary??summaries[i]}</p><div className="case-metrics">{c.metrics.slice(0,c.trackingName?4:3).map(m=><div key={`${m[0]}-${m[1]}`}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div><span className="case-open">View case study <b>↗</b></span></button>)}</div>
+    <div className="case-grid">{(order??caseStudies.map((_,i)=>i)).map(i=>[caseStudies[i],i] as const).map(([c,i])=><button className="case-card" key={c.title} onClick={()=>openCaseStudy(c)}><span className="case-no">0{i+1}</span><p className="kicker">{c.brand?`${c.brand} / ${c.category}`:c.category}</p><h3>{c.title}</h3><p className="case-summary">{c.summary??summaries[i]}</p><div className="case-metrics">{c.metrics.slice(0,c.trackingName?4:3).map(m=><div key={`${m[0]}-${m[1]}`}><strong><Delta value={m[0]}/></strong><span>{m[1]}</span></div>)}</div><span className="case-open">View case study <b>↗</b></span></button>)}</div>
     {active&&<Dialog label={`${active.brand?`${active.brand} `:""}${active.title} case study`} onClose={()=>setActive(null)}>
       <p className="kicker">{active.brand?`${active.brand} / ${active.category}`:active.category}</p>
       <h2>{active.title}</h2>
       {active.brandUrl&&<a className="case-brand-link" href={active.brandUrl} target="_blank" rel="noopener noreferrer">Visit {active.brand} <span aria-hidden>↗</span></a>}
-      <div className="modal-metrics">{active.metrics.map(m=><div key={`${m[0]}-${m[1]}`}><strong>{m[0]}</strong><span>{m[1]}</span></div>)}</div>
+      <div className="modal-metrics">{active.metrics.map(m=><div key={`${m[0]}-${m[1]}`}><strong><Delta value={m[0]}/></strong><span>{m[1]}</span></div>)}</div>
       {active.trackingName&&active.tags&&<div className="modal-tags" aria-label="Case study capabilities">{active.tags.map(tag=><span key={tag}>{tag}</span>)}</div>}
       <section className="modal-section"><h3>Situation</h3><p>{active.situation}</p></section>
       <section className="modal-section"><h3>Diagnosis</h3><p>{active.diagnosis}</p></section>

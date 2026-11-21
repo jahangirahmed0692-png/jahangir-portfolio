@@ -55,7 +55,7 @@ export default function Home(){
       <ul className="hero-proof" aria-label="Professional credentials">{[["9+","years in paid media"],["$5M+","ad spend managed"],["50+","accounts managed"],["3","markets: U.S., MENA, AU"]].map(([a,b])=><li key={b}><strong>{a}</strong><span>{b}</span></li>)}</ul>
       <p className="hero-alt">Prefer a platform? <TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire me on Upwork ↗</TrackedLink> <i/> <TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></p>
     </div>
-    <div className="portrait-wrap"><Image className="portrait" src="/images/jahangir-headshot-2026.png" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1448} priority sizes="(max-width: 900px) 100vw, 44vw"/><ProofCard/></div>
+    <div className="portrait-stage"><Image className="portrait-cutout" src="/images/jahangir-cutout-2026.webp" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1357} priority sizes="(max-width: 900px) 100vw, 44vw"/><ProofCard/></div>
   </section>
   <section className="path-band" aria-label="Choose your business type"><div className="container"><PathPicker/></div></section>
 

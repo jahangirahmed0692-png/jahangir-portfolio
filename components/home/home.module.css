@@ -23,8 +23,8 @@
 .kpis>div{display:grid;gap:6px;padding:18px;background:#1b1f1d;min-width:0}
 .kpis strong{font:600 clamp(22px,2.6vw,32px)/1.1 var(--font-plex),monospace;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
 .kpis span{color:var(--muted);font-size:13px;line-height:1.45}
-.waste strong{color:#f2c66d}
-.verdict{display:grid;gap:8px;padding:18px 20px;border-left:3px solid #f2c66d;background:#1b1f1d}
+.waste strong{color:var(--amber)}
+.verdict{display:grid;gap:8px;padding:18px 20px;border-left:3px solid var(--amber);background:#1b1f1d}
 .verdict.ok{border-left-color:var(--green)}
 .verdict h3{margin:0;font-size:17px;font-weight:600}
 .verdict p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
@@ -35,7 +35,7 @@
 /* Results toggle */
 .toggleRow{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-bottom:26px}
 .toggle{display:inline-flex;gap:3px;padding:3px;border:1px solid #cbd1ca;background:#fff}
-.toggle button{padding:11px 18px;border:0;background:transparent;color:#52625c;font:600 14px var(--font-inter),sans-serif;cursor:pointer}
+.toggle button{padding:11px 18px;border:0;background:transparent;color:#52625c;font:600 13px var(--font-plex),monospace;cursor:pointer}
 .toggle button[aria-pressed=true]{background:var(--dark-text);color:#fff}
 .toggleHint{margin:0;color:#52625c;font-size:15px}
 .results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid #cbd1ca;border-left:1px solid #cbd1ca}
@@ -61,7 +61,7 @@
 /* System map */
 .map{border:1px solid var(--line);background:var(--panel)}
 .stages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-bottom:1px solid var(--line)}
-.stages button{position:relative;padding:18px 10px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);font:600 15px var(--font-inter),sans-serif;cursor:pointer;transition:color .2s,background .2s}
+.stages button{position:relative;padding:18px 10px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);font:600 14px var(--font-plex),monospace;letter-spacing:.02em;cursor:pointer;transition:color .2s,background .2s}
 .stages button:last-child{border-right:0}
 .stages button:hover{color:var(--paper)}
 .stages button[aria-selected=true]{background:rgba(25,183,122,.12);color:var(--mint);box-shadow:inset 0 -3px var(--green)}
