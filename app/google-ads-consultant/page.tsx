@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/components/site-footer";
+import { personRef } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EmailLink, Header, TrackedLink } from "@/components/portfolio-client";
@@ -20,9 +22,9 @@ export const metadata: Metadata = {
     description,
     url: pageUrl,
     siteName: "Jahangir Ahmed",
-    images: [{ url: `${siteUrl}/og.png`, width: 1200, height: 630, alt: "Jahangir Ahmed — Google Ads Consultant" }],
+    images: [{ url: `${siteUrl}/og.jpg`, width: 1200, height: 630, alt: "Jahangir Ahmed — Google Ads Consultant" }],
   },
-  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og.png`] },
+  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og.jpg`] },
 };
 
 const capabilities = [
@@ -88,14 +90,7 @@ export default function GoogleAdsConsultantPage() {
     serviceType: "Google Ads strategy, campaign management and account audits",
     url: pageUrl,
     description,
-    provider: {
-      "@type": "Person",
-      name: "Jahangir Ahmed",
-      jobTitle: "Performance Marketing Specialist",
-      url: `${siteUrl}/`,
-      sameAs: [links.linkedin, links.upwork],
-      knowsAbout: ["Google Ads", "Google Search Ads", "Performance Max", "GA4", "Google Tag Manager", "Conversion tracking", "Paid acquisition"],
-    },
+    provider: personRef,
   };
 
   return <>
@@ -186,5 +181,6 @@ export default function GoogleAdsConsultantPage() {
       </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify([breadcrumb, serviceSchema]).replace(/</g,"\\u003c")}} />
     </main>
+    <SiteFooter location="google_ads_consultant_footer" />
   </>;
 }

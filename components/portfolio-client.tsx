@@ -82,10 +82,10 @@ function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;chil
 export function Header({ homeHrefPrefix="", ctaLocation="header" }:{ homeHrefPrefix?:string; ctaLocation?:string }){
   const [open,setOpen]=useState(false); const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const on=()=>setScrolled(scrollY>16);on();addEventListener("scroll",on,{passive:true});return()=>removeEventListener("scroll",on)},[]);
-  const nav=[["Results","#results"],["Expertise","#expertise"],["Case Studies","#case-studies"],["About","#about"],["Testimonials","#testimonials"],["Services","#services"]];
+  const nav=[["Results",`${homeHrefPrefix}#results`],["Case Studies",`${homeHrefPrefix}#case-studies`],["Google Ads","/google-ads-consultant"],["Performance Marketing","/performance-marketing-specialist"],["Insights","/insights"],["About",`${homeHrefPrefix}#about`]];
   return <header className={`site-header ${scrolled?"scrolled":""}`}>
     <a className="brand" href={`${homeHrefPrefix}#top`} aria-label="Jahangir Ahmed, home"><span className="monogram">JA</span><span>Jahangir Ahmed</span></a>
-    <nav id="mobile-nav" className={open?"open":""} aria-label="Primary navigation">{nav.map(([x,h])=><a key={h} href={`${homeHrefPrefix}${h}`} onClick={()=>setOpen(false)}>{x}</a>)}</nav>
+    <nav id="mobile-nav" className={open?"open":""} aria-label="Primary navigation">{nav.map(([x,h])=><a key={h} href={h} onClick={()=>setOpen(false)}>{x}</a>)}</nav>
     <TrackedLink className="button button-small header-cta" href={links.upwork} event="upwork_click" details={{cta_location:ctaLocation,link_text:"Hire Me"}} target="_blank" rel="noopener noreferrer">Hire Me <span aria-hidden>↗</span></TrackedLink>
     <button className="menu" onClick={()=>setOpen(!open)} aria-expanded={open} aria-controls="mobile-nav" aria-label="Toggle navigation"><span/><span/></button>
   </header>;

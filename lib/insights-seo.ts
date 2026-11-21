@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import type { Insight } from "@/data/insights";
+import { personId, siteUrl, websiteId } from "@/lib/site";
 
-export const siteUrl = "https://jahangirahmed.com";
+export { siteUrl };
 export const insightsUrl = `${siteUrl}/insights`;
 export const insightUrl = (slug: string) => `${insightsUrl}/${slug}`;
 export const insightAuthor = {
   "@type": "Person",
+  "@id": personId,
   name: "Jahangir Ahmed",
   jobTitle: "Performance Marketing Specialist",
-  url: `${siteUrl}/#about`,
+  url: `${siteUrl}/`,
 };
 
 export function insightsMetadata(title: string, description: string, article?: Insight): Metadata {
   const url = article ? insightUrl(article.slug) : insightsUrl;
   const image = article?.image ?? {
-    url: `${siteUrl}/og-home-2026.png`,
+    url: `${siteUrl}/og-home-2026.jpg`,
     alt: "Jahangir Ahmed, Performance Marketing Specialist",
   };
   return {
@@ -49,7 +51,7 @@ export function insightBreadcrumb(article?: Insight) {
 
 export function articleSchema(article: Insight) {
   return {
-    "@context": "https://schema.org", "@type": "Article",
+    "@context": "https://schema.org", "@type": "BlogPosting",
     "@id": `${insightUrl(article.slug)}#article`,
     url: insightUrl(article.slug),
     mainEntityOfPage: insightUrl(article.slug),
@@ -57,7 +59,9 @@ export function articleSchema(article: Insight) {
     datePublished: article.publishedAt,
     dateModified: article.updatedAt ?? article.publishedAt,
     author: insightAuthor,
+    publisher: { "@id": personId },
+    isPartOf: { "@id": websiteId },
     inLanguage: "en",
-    ...(article.image ? { image: new URL(article.image.url, siteUrl).href } : {}),
+    image: new URL(article.image?.url ?? "/og-home-2026.jpg", siteUrl).href,
   };
 }

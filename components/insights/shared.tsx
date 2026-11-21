@@ -27,6 +27,4 @@ export function InsightsCta({ location }: { location: string }) {
   </aside>;
 }
 
-export function InsightsFooter() {
-  return <footer className="footer"><div><Link className="brand" href="/">Jahangir Ahmed</Link><p>Performance Marketing Specialist</p></div><nav className="footer-links" aria-label="Insights footer"><Link href="/insights">Insights</Link><Link href="/#about">About</Link><Link href="/#services">Services</Link></nav><small>© {new Date().getFullYear()} Jahangir Ahmed</small></footer>;
-}
+export { SiteFooter as InsightsFooter } from "@/components/site-footer";
