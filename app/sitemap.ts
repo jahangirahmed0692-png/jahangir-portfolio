@@ -32,5 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    { url: "https://jahangirahmed.com/meta-ads-consultant", lastModified: pagesUpdatedAt.metaAdsConsultant, changeFrequency: "monthly", priority: 0.9 },
+    { url: "https://jahangirahmed.com/google-ads-audit", lastModified: pagesUpdatedAt.googleAdsAudit, changeFrequency: "monthly", priority: 0.8 },
+    { url: "https://jahangirahmed.com/google-ads-for-home-services", lastModified: pagesUpdatedAt.googleAdsHomeServices, changeFrequency: "monthly", priority: 0.8 },
   ];
 }

@@ -30,8 +30,8 @@ export const insights: readonly Insight[] = [{
   authorBio: "9+ years across Google Ads, Meta Ads and paid acquisition, with $5M+ in managed media spend.",
   cta: {
     heading: "Need a second set of eyes on your Google Ads account?",
-    href: "/google-ads-consultant",
-    linkText: "Explore my Google Ads consulting approach",
+    href: "/google-ads-audit",
+    linkText: "Get a Google Ads audit",
   },
   Content: GoogleAdsAuditChecklist,
 }];
