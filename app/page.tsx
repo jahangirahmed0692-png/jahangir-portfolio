@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BookingLink, Certifications, EmailLink, Header, TrackedLink } from "@/components/portfolio-client";
+import { HeroHeadline, ProofCard } from "@/components/home/hero-client";
 import { HomeProvider, LeadForm, LeakCheck, PathCaseStudies, PathPicker, ResultsToggle, SystemMap } from "@/components/home/home-client";
 import { getInsights, formatPublicationDate } from "@/data/insights";
 import { links } from "@/data/content";
@@ -42,20 +43,20 @@ export default function Home(){
   const latest=getInsights().slice(0,3);
   return <><Header/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLdString(profilePageJsonLd)}}/><HomeProvider><main className="home-v3">
 
-  <section className="hero" id="top">
+  <section className="hero hero-v4" id="top">
     <div className="hero-copy">
       <h1 className="eyebrow"><span/> Jahangir Ahmed · PPC, Google Ads &amp; Meta Ads Specialist</h1>
-      <p className="hero-title">Paid media optimized for <span>profit</span>, not platform metrics.</p>
-      <p className="hero-intro">I help businesses turn Google Ads, Meta Ads and paid acquisition into measurable growth through stronger campaign strategy, cleaner conversion data, better customer intent and continuous performance optimization.</p>
+      <HeroHeadline/>
+      <p className="hero-intro">Google Ads and Meta Ads for U.S. businesses that care about revenue, not clicks.</p>
       <div className="hero-actions">
         <BookingLink className="button" ctaLocation="hero">Book a Call</BookingLink>
         <a className="text-link" href="#leak-check">Check your numbers <span aria-hidden>↓</span></a>
       </div>
+      <ul className="hero-proof" aria-label="Professional credentials">{[["9+","years in paid media"],["$5M+","ad spend managed"],["50+","accounts managed"],["3","markets: U.S., MENA, AU"]].map(([a,b])=><li key={b}><strong>{a}</strong><span>{b}</span></li>)}</ul>
       <p className="hero-alt">Prefer a platform? <TrackedLink href={links.upwork} event="upwork_click" details={{cta_location:"hero",link_text:"Hire me on Upwork"}} target="_blank" rel="noopener noreferrer">Hire me on Upwork ↗</TrackedLink> <i/> <TrackedLink href={links.linkedin} event="linkedin_click" details={{cta_location:"hero",link_text:"LinkedIn"}} target="_blank" rel="noopener noreferrer">LinkedIn ↗</TrackedLink></p>
     </div>
-    <div className="portrait-wrap"><Image className="portrait" src="/images/jahangir-headshot-2026.png" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1448} priority sizes="(max-width: 900px) 100vw, 44vw"/><div className="portrait-metric"><strong>$5M+</strong><span>Ad spend managed</span></div></div>
+    <div className="portrait-wrap"><Image className="portrait" src="/images/jahangir-headshot-2026.png" alt="Jahangir Ahmed, PPC and Google Ads specialist" width={1086} height={1448} priority sizes="(max-width: 900px) 100vw, 44vw"/><ProofCard/></div>
   </section>
-  <section className="credibility" aria-label="Professional credentials">{[["9+","Years in paid media"],["$5M+","Ad spend managed"],["50+","Accounts in a multi-client portfolio"],["3 Markets","U.S. • MENA • Australia"]].map(x=><div key={x[1]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</section>
   <section className="path-band" aria-label="Choose your business type"><div className="container"><PathPicker/></div></section>
 
   <section className="section leak-section" id="leak-check"><div className="container">
