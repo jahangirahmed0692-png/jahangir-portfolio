@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     description,
     url: pageUrl,
     siteName: "Jahangir Ahmed",
-    images: [{ url: `${siteUrl}/og.jpg`, width: 1200, height: 630, alt: "Jahangir Ahmed — Google Ads Consultant" }],
+    images: [{ url: `${siteUrl}/og-share-2026.jpg`, width: 1200, height: 630, alt: "Jahangir Ahmed — Google Ads Consultant" }],
   },
-  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og.jpg`] },
+  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og-share-2026.jpg`] },
 };
 
 const capabilities = [

@@ -78,7 +78,6 @@ function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;chil
   return <div className="overlay" role="presentation" onMouseDown={(e)=>{if(e.target===e.currentTarget)onClose()}}><div className="dialog" role="dialog" aria-modal="true" aria-label={label} tabIndex={-1} ref={ref}><button className="close" onClick={onClose} aria-label="Close dialog">×</button>{children}</div></div>;
 }
 
-/** Primary call to action. Opens the Google Calendar booking page when NEXT_PUBLIC_BOOKING_URL is set, otherwise jumps to the homepage form. */
 /** Renders "2x → 6x" with the "before" value in the amber accent. */
 export function Delta({ value }:{ value:string }){
   const parts=value.split("→");
@@ -86,6 +85,7 @@ export function Delta({ value }:{ value:string }){
   return <><span className="before">{parts[0].trim()}</span> <span className="delta-arrow" aria-label="to">→</span> {parts[1].trim()}</>;
 }
 
+/** Primary call to action. Opens the Google Calendar booking page (links.booking), otherwise jumps to the homepage form. */
 export function BookingLink({ ctaLocation, className="", children }:{ ctaLocation:string; className?:string; children:React.ReactNode }){
   const external=Boolean(links.booking);
   return <TrackedLink className={className} href={links.booking||"/#contact"} event="booking_click" details={{cta_location:ctaLocation,destination:external?"calendar":"form"}} target={external?"_blank":undefined} rel={external?"noopener noreferrer":undefined}>{children} <span aria-hidden>{external?"↗":"→"}</span></TrackedLink>;

@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "website", title, description, url: pageUrl, siteName: "Jahangir Ahmed",
-    images: [{ url: `${siteUrl}/og-home-2026.jpg`, width: 1200, height: 630, alt: "Jahangir Ahmed, Meta Ads consultant" }],
+    images: [{ url: `${siteUrl}/og-share-2026.jpg`, width: 1200, height: 630, alt: "Jahangir Ahmed, Meta Ads consultant" }],
   },
-  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og-home-2026.jpg`] },
+  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og-share-2026.jpg`] },
 };
 
 const capabilities = [
