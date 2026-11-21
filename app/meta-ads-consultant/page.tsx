@@ -47,7 +47,7 @@ const faqs = [
 ];
 
 const outcomes = [
-  ["eCommerce / Kids apparel", "Oaklynn", "Meta ROAS rose from approximately 2x to 6x and held for at least two further quarters, while return orders fell from roughly 40% to 15%. Monthly spend was approximately $20K–$30K."],
+  ["eCommerce / Kids apparel", "Oaklynn", "Meta ROAS rose from approximately 2x to 6x and held for at least two further quarters, while return orders fell from roughly 40% to 15%. All of this ran on a lean budget under $3K a month."],
   ["Australia / Multi-location services", "Sonder Mens", "Location-specific Meta campaigns with stylist-led, USP-driven and short-form creative, plus search-to-Meta retargeting, took Meta ROAS from approximately 4x to 8x over about five months."],
   ["Subscription app / Fitness", "AimFit", "Paid app acquisition with Adjust attribution and MoEngage lifecycle automation maintained approximately 4:1 LTV:CAC at roughly $30K–$40K monthly acquisition spend."],
 ];
