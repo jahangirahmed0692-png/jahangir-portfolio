@@ -16,7 +16,7 @@ export const insightAuthor = {
 export function insightsMetadata(title: string, description: string, article?: Insight): Metadata {
   const url = article ? insightUrl(article.slug) : insightsUrl;
   const image = article?.image ?? {
-    url: `${siteUrl}/og-home-2026.jpg`,
+    url: `${siteUrl}/og-share-2026.jpg`,
     alt: "Jahangir Ahmed, Performance Marketing Specialist",
   };
   return {
@@ -62,6 +62,6 @@ export function articleSchema(article: Insight) {
     publisher: { "@id": personId },
     isPartOf: { "@id": websiteId },
     inLanguage: "en",
-    image: new URL(article.image?.url ?? "/og-home-2026.jpg", siteUrl).href,
+    image: new URL(article.image?.url ?? "/og-share-2026.jpg", siteUrl).href,
   };
 }

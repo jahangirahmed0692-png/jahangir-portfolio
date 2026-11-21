@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "website", title, description, url: pageUrl, siteName: "Jahangir Ahmed",
-    images: [{ url: `${siteUrl}/og.jpg`, width: 1200, height: 630, alt: "Google Ads for home service businesses by Jahangir Ahmed" }],
+    images: [{ url: `${siteUrl}/og-share-2026.jpg`, width: 1200, height: 630, alt: "Google Ads for home service businesses by Jahangir Ahmed" }],
   },
-  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og.jpg`] },
+  twitter: { card: "summary_large_image", title, description, images: [`${siteUrl}/og-share-2026.jpg`] },
 };
 
 const homeServiceIndustries = new Set(["Roofing Company", "Tree Service Company", "Commercial Tire Repair"]);
