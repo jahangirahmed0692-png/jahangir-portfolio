@@ -58,7 +58,7 @@ export function EmailLink({ ctaLocation, linkText, className="", children }:{cta
   return <span className="email-action"><a className={className} href={links.email} data-track="email_click" data-cta-location={ctaLocation} onClick={handleClick}>{children}</a><span className={`email-copied${copied?" visible":""}`} role="status" aria-live="polite">{copied?"Email copied":""}</span></span>;
 }
 
-function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;children:React.ReactNode}) {
+export function Dialog({ label, onClose, children, className="" }:{label:string;onClose:()=>void;children:React.ReactNode;className?:string}) {
   const ref=useRef<HTMLDivElement>(null);
   useEffect(()=>{
     const previous=document.activeElement as HTMLElement|null;
@@ -75,7 +75,7 @@ function Dialog({ label, onClose, children }:{label:string;onClose:()=>void;chil
     document.addEventListener("keydown",key);
     return()=>{document.removeEventListener("keydown",key);document.body.classList.remove("locked");previous?.focus()};
   },[onClose]);
-  return <div className="overlay" role="presentation" onMouseDown={(e)=>{if(e.target===e.currentTarget)onClose()}}><div className="dialog" role="dialog" aria-modal="true" aria-label={label} tabIndex={-1} ref={ref}><button className="close" onClick={onClose} aria-label="Close dialog">×</button>{children}</div></div>;
+  return <div className="overlay" role="presentation" onMouseDown={(e)=>{if(e.target===e.currentTarget)onClose()}}><div className={`dialog ${className}`.trim()} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1} ref={ref}><button className="close" onClick={onClose} aria-label="Close dialog">×</button>{children}</div></div>;
 }
 
 /** Renders "2x → 6x" with the "before" value in the amber accent. */
