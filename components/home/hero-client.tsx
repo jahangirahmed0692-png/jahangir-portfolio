@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Delta } from "@/components/portfolio-client";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { Delta, Dialog } from "@/components/portfolio-client";
+import { track } from "@/lib/tracking";
 import s from "./hero.module.css";
 
 /* All figures come from data/content.ts (results and case studies). */
@@ -72,4 +74,28 @@ export function ProofCard() {
     </div>
     <div className={s.dots}>{proofs.map((p, n) => <button key={p[0]} type="button" aria-label={`Show result ${n + 1}: ${p[0]} ${p[1]}`} aria-pressed={n === i} onClick={() => setI(n)} />)}</div>
   </div>;
+}
+
+const INTRO_SRC = "/video/jahangir-intro.mp4";
+const INTRO_POSTER = "/video/jahangir-intro-poster.webp";
+
+/** "Watch the intro" tile beside the portrait. Nothing but a small poster loads until the visitor clicks. */
+export function IntroVideo() {
+  const [open, setOpen] = useState(false);
+  const done = useRef(false);
+  return <>
+    <button type="button" className={s.introTile} onClick={() => { setOpen(true); track("intro_video_open", { cta_location: "hero" }); }} aria-label="Watch the 60-second intro video">
+      <span className={s.introThumb}>
+        <Image src={INTRO_POSTER} alt="" width={1280} height={720} sizes="180px" />
+        <span className={s.introPlay} aria-hidden><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+      </span>
+      <span className={s.introText}><strong>Watch the intro</strong><small>60 sec · what I do</small></span>
+    </button>
+    {open && <Dialog label="Intro video: Jahangir Ahmed, performance marketing" onClose={() => setOpen(false)} className="video-dialog">
+      <video className={s.introVideo} src={INTRO_SRC} poster={INTRO_POSTER} controls autoPlay playsInline preload="none"
+        onEnded={() => { if (!done.current) { done.current = true; track("intro_video_complete", { cta_location: "hero" }); } }}>
+        Your browser can&apos;t play this video.
+      </video>
+    </Dialog>}
+  </>;
 }

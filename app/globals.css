@@ -420,3 +420,8 @@ body{overflow-x:visible}
 .button ~ .text-link:active{transform:translateY(1px)}
 .light .button ~ .text-link{border-color:#c9d0ca;background:#fff;color:var(--dark-text)}
 @media(max-width:650px){.button.button-small.header-cta{display:none}.button ~ .text-link{justify-content:center}}
+
+/* Intro video dialog */
+.dialog.video-dialog{width:min(1120px,100%);padding:52px 0 0;background:#0d0f0f;color:var(--paper);border:1px solid rgba(167,243,208,.2);overflow:hidden}
+.dialog.video-dialog .close{color:var(--paper);top:6px;right:8px}
+@media(max-width:650px){.dialog.video-dialog{padding:48px 0 0}}
